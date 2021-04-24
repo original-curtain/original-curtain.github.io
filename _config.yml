@@ -98,11 +98,11 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: maupassant
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
   repository: https://github.com/original-curtain/original-curtain.github.io.git
-  branch: main
+  branch: master
