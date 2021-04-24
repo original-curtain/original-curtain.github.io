@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-24 14:16:56" itemprop="dateModified" datetime="2021-04-24T14:16:56+08:00">2021-04-24</time>
+                <time title="Modified: 2021-04-24 16:05:37" itemprop="dateModified" datetime="2021-04-24T16:05:37+08:00">2021-04-24</time>
               </span>
 
           
@@ -190,22 +190,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <span id="more"></span>
-
-<h1 id="非静态内部类"><a href="#非静态内部类" class="headerlink" title="非静态内部类"></a>非静态内部类</h1><ul>
-<li>非静态内部类可以直接访问外部类的实例变量、类变量、实例方法、类方法。这是因为在非静态内部类对象里，保存了一个它所寄生的外部类对象的引用（非静态内部类实例必须寄生在外部类实例里）。也就是说，非静态内部类对象总有一个隐式引用，指向了创建它的外部类对象。</li>
-<li>非静态内部类的成员只是在非静态内部类范围是可知的，并不能被外部类直接使用，如果要访问非静态内部类的成员必须显示创建非静态内部类对象来调用访问！</li>
-<li>根据静态成员不能访问非静态成员的规则，外部类的静态方法不能访问非静态内部类。</li>
-<li>非静态内部类不允许定义静态成员</li>
-</ul>
-<h1 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h1><ul>
-<li>静态内部类属于外部类本身，但是不属于外部类的任何对象</li>
-<li>静态内部类不能访问外部类的实例成员，只能访问外部类的类成员。</li>
-<li>外部类可以使用静态内部类的类名作为调用者来访问静态内部类的类成员，也可以使用静态内部类对象访问其实例成员</li>
-</ul>
-<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p>非静态内部类编译后隐式保存着外部类的引用（就算外部类对象没用了也GC不掉），但是静态内部类没有。</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/GrimMjx/p/10105626.html">https://www.cnblogs.com/GrimMjx/p/10105626.html</a></p>
-
+          <p>内部类：就是我是你的一部分，我了解你，我知道你的全部，没有你就没有我。（所以内部类对象是以外部类对象存在为前提的）</p>
+<p>静态内部类：就是我跟你没关系，自己可以完全独立存在，但是我就借你的壳用一下，来隐藏自己。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -247,10 +241,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-22 11:08:17 / Modified: 11:16:39" itemprop="dateCreated datePublished" datetime="2021-04-22T11:08:17+08:00">2021-04-22</time>
+              <time title="Created: 2021-04-22 11:08:17" itemprop="dateCreated datePublished" datetime="2021-04-22T11:08:17+08:00">2021-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-24 16:08:39" itemprop="dateModified" datetime="2021-04-24T16:08:39+08:00">2021-04-24</time>
+              </span>
 
           
 
@@ -263,58 +263,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h1><h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><p>一个 http 请求报文由四个部分组成：</p>
-<ul>
-<li><p>请求行（Request-Line）</p>
-<ul>
-<li>示例 POST / HTTP/1.1</li>
-<li>请求行分为了三个部分：<ul>
-<li>请求方法（Method）</li>
-<li>请求URI</li>
-<li>HTTP 协议版本</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>请求头部（Request Header Fields）</p>
-<ul>
-<li>这部分由成对的请求头部组成，用来告知服务端请求的更多信息。</li>
-</ul>
-</li>
-<li><p>回车换行（CRLF）</p>
-</li>
-<li><p>消息体（Message Body）</p>
-<ul>
-<li>这部分携带了本次请求需要发往服务端的信息，有的 Method 有这部分，而有的 Method 不需要这部分。<br>比如 get 方法就没有消息体，get 方法一般都是通过 query 来传递参数。而 post 方法一般就有消息体。<h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2>一个 http 响应报文也由四个部分组成：</li>
-</ul>
-</li>
-<li><p>状态行（Status-Line）</p>
-<ul>
-<li><p>HTTP/1.1 200 OK</p>
-</li>
-<li><p>上面是一个典型的 http 响应状态行，我们可以看到也是由三部分组成的：</p>
-<ul>
-<li>http 协议版本</li>
-<li>状态码（Status Code）</li>
-<li>状态码的文本描述（Reason-Phrase）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>响应头部（Response Header Fields）</p>
-<ul>
-<li>和请求头部类似，就是两者之间有一些不同的头部字段。</li>
-</ul>
-</li>
-<li><p>回车换行（CRLF）</p>
-</li>
-<li><p>消息体（Message Body）</p>
-<ul>
-<li>返回给客户端的具体消息</li>
-</ul>
-</li>
-</ul>
-
+          <p>应用层协议，不是传输层协议，区别TCP，UDP</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/http/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -356,10 +313,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-22 10:58:27 / Modified: 11:07:15" itemprop="dateCreated datePublished" datetime="2021-04-22T10:58:27+08:00">2021-04-22</time>
+              <time title="Created: 2021-04-22 10:58:27" itemprop="dateCreated datePublished" datetime="2021-04-22T10:58:27+08:00">2021-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-24 16:09:29" itemprop="dateModified" datetime="2021-04-24T16:09:29+08:00">2021-04-24</time>
+              </span>
 
           
 
@@ -372,21 +335,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="主要规则"><a href="#主要规则" class="headerlink" title="主要规则"></a>主要规则</h1><ol>
-<li>当两个或者多个并发线程同时访问一个object中的synchronized(this)同步代码块时，一个时间内只能有一个线程得到执行，其他线程必须要等到当前线程执行完这个代码块之后才能继续执行该代码块。</li>
-<li>然而，当一个线程访问object中的synchronized(this)同步代码块时，其他线程仍然可以调用object中的其它非synchronized(this)同步代码块。</li>
-<li>尤其关键的是，当一个线程访问object中的一个synchronized(this)同步代码块时，其他线程对于object中的其它synchronized(this)同步代码块的访问，都将被阻塞。</li>
-<li>第3条中的说明同样适用于其它同步代码块，也就是说，当一个线程访问object中的一个synchronized(this)同步代码块时，它就获得了整个object的对象锁，因此，其他所有线程对于object的所有同步代码块的访问都将被暂时阻塞，直至当前线程执行完这个代码块。</li>
-<li>上述的规则对于其他对象锁也同样适用。</li>
-</ol>
-<h1 id="synchronized方法"><a href="#synchronized方法" class="headerlink" title="synchronized方法"></a>synchronized方法</h1><p>每一个类实例都对应一把锁，每个synchronized方法的执行都必须要获得调用该方法的类的实例的锁，才能执行，否则，线程就会阻塞。而方法一旦开始执行，就会独占该锁，直到方法执行完成返回后释放该锁，然后阻塞的线程就获取锁，然后调用方法执行。</p>
-<p>这种机制确保了同一时刻对于每一个类的实例来讲，只有一个synchronized方法处于正在执行状态，因为同一时间最多只能有一个线程获取到类的实例的锁。这能确保类成员变量的访问冲突问题，前提是我们将所有可能冲突的方法声明为synchronized方法。</p>
-<p>在java中，不仅仅是类的实例，类也有锁，我们可以将类的静态变量声明上添加synchronized关键字，这样就能控制线程对于类静态成员变量的访问。</p>
-<p>缺点：将方法声明为synchronized会影响效率。例如，如果我们想线程类的run()方法定义为synchronized的，则在线程的整个生命周期内，它都会一直运行，且它无法调用本类任何synchronized方法，因为一直占用锁。所以我们可以将访问成员变量部分的代码定义为单独的方法，然后将这个方法声明为synchronized即可。</p>
-<h1 id="synchronized块"><a href="#synchronized块" class="headerlink" title="synchronized块"></a>synchronized块</h1><p>我们同样可以通过使用synchronized关键字声明一个synchronized块，代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronized (inner) &#123;</span><br><span class="line">    &#x2F;&#x2F;需要进行访问控制的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码中的inner可以为类，也可以为类的实例，具体实现可以如下所示，此种方式同synchronized进行比较的话，更为灵活，我们可以根据实际的需要对于想要添加锁的代码或类加锁。</p>
-
+          <p>用于多线程同步情况下。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/synchronized/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -428,10 +385,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-22 10:42:44 / Modified: 10:52:22" itemprop="dateCreated datePublished" datetime="2021-04-22T10:42:44+08:00">2021-04-22</time>
+              <time title="Created: 2021-04-22 10:42:44" itemprop="dateCreated datePublished" datetime="2021-04-22T10:42:44+08:00">2021-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-24 16:11:46" itemprop="dateModified" datetime="2021-04-24T16:11:46+08:00">2021-04-24</time>
+              </span>
 
           
 
@@ -444,33 +407,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="抽象类和普通类的区别"><a href="#抽象类和普通类的区别" class="headerlink" title="抽象类和普通类的区别"></a>抽象类和普通类的区别</h1><ul>
-<li><p>抽象方法必须为public或者protected（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public。</p>
-</li>
-<li><p>抽象类不能用来创建对象；</p>
-</li>
-<li><p>如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。</p>
-</li>
-</ul>
-<h1 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h1><ul>
-<li>接口中的变量会被隐式地指定为public static final变量（并且只能是public static final变量，用private修饰会报编译错误）</li>
-<li>方法会被隐式地指定为public abstract方法且只能是public abstract方法（用其他关键字，比如private、protected、static、 final等修饰会报编译错误），并且接口中所有的方法不能有具体的实现</li>
-</ul>
-<h1 id="抽象类与接口的区别"><a href="#抽象类与接口的区别" class="headerlink" title="抽象类与接口的区别"></a>抽象类与接口的区别</h1><ul>
-<li>语法层面上区别<ol>
-<li>抽象类可以提供成员方法的实现细节，而接口中只能存在public abstract 方法</li>
-<li>抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是public static final类型的</li>
-<li>接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法</li>
-<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
-</ol>
-</li>
-<li>设计层面上的区别<ol>
-<li>抽象类是对一种事物的抽象，即对类抽象，而接口是对行为的抽象。</li>
-<li>设计层面不同，抽象类作为很多子类的父类，它是一种模板式设计。而接口是一种行为规范，它是一种辐射式设计。</li>
-</ol>
-</li>
-</ul>
-
+          <p>Java的抽象类和接口</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E6%8E%A5%E5%8F%A3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -512,10 +457,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-22 10:28:16 / Modified: 10:34:35" itemprop="dateCreated datePublished" datetime="2021-04-22T10:28:16+08:00">2021-04-22</time>
+              <time title="Created: 2021-04-22 10:28:16" itemprop="dateCreated datePublished" datetime="2021-04-22T10:28:16+08:00">2021-04-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-24 16:09:40" itemprop="dateModified" datetime="2021-04-24T16:09:40+08:00">2021-04-24</time>
+              </span>
 
           
 
@@ -572,16 +523,14 @@
 <td>N</td>
 </tr>
 </tbody></table>
-<h1 id="protect"><a href="#protect" class="headerlink" title="protect"></a>protect</h1><p>protected 需要从以下两个点来分析说明：</p>
-<ul>
-<li><p>子类与基类在同一包中：被声明为 protected 的变量、方法和构造器能被同一个包中的任何其他类访问；</p>
-</li>
-<li><p>子类与基类不在同一包中：那么在子类中，子类实例可以访问其从基类继承而来的 protected 方法，而不能访问基类实例的protected方法。</p>
-</li>
-</ul>
-<p>protected 可以修饰数据成员，构造方法，方法成员，不能修饰类（内部类除外）。</p>
-<p>接口及接口的成员变量和成员方法不能声明为 protected。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/Java%E7%B1%BB%E4%BF%AE%E9%A5%B0%E7%AC%A6/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
