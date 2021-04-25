@@ -236,7 +236,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-25 14:32:58 / Modified: 14:33:16" itemprop="dateCreated datePublished" datetime="2021-04-25T14:32:58+08:00">2021-04-25</time>
+              <time title="Created: 2021-04-25 14:32:58 / Modified: 18:59:36" itemprop="dateCreated datePublished" datetime="2021-04-25T14:32:58+08:00">2021-04-25</time>
             </span>
 
           
@@ -250,7 +250,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p>一个事件产生后，事件先传递到Activity，再传到ViewGroup，最终传到View.</p>
+<p>其主要通过一下三个方法完成事件传递：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>调用时刻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dispatchTouchEvent()</td>
+<td>传递点击事件</td>
+<td>当事件能传递到当前View时调用</td>
+</tr>
+<tr>
+<td>onTouchEvent()</td>
+<td>处理点击事件</td>
+<td>在dispatchTouchEvent()内部调用</td>
+</tr>
+<tr>
+<td>onInterceptTouchEvent()</td>
+<td>判断是否拦截某个事件（只存在于ViewGroup，普通View没有）</td>
+<td>在ViewGroup的dispatchTouchEvent()内调用</td>
+</tr>
+</tbody></table>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
