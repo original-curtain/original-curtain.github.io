@@ -9,6 +9,7 @@ tags: Java
 |protected|Y|Y|Y|Y/N|N|
 |default|Y|Y|Y|N|N|
 |private|Y|N|N|N|N|
+<!--more-->
 
 # protect
 protected 需要从以下两个点来分析说明：

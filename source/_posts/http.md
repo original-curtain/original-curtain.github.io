@@ -3,8 +3,12 @@ title: http
 date: 2021-04-22 11:08:17
 tags: 网络
 ---
+应用层协议，不是传输层协议，区别TCP，UDP
+<!--more-->
 # 报文格式
+
 ## 请求报文
+
 一个 http 请求报文由四个部分组成：
 
 - 请求行（Request-Line）
@@ -19,7 +23,9 @@ tags: 网络
 - 消息体（Message Body）
     - 这部分携带了本次请求需要发往服务端的信息，有的 Method 有这部分，而有的 Method 不需要这部分。
     比如 get 方法就没有消息体，get 方法一般都是通过 query 来传递参数。而 post 方法一般就有消息体。
+
 ## 响应报文
+
 一个 http 响应报文也由四个部分组成：
 
 - 状态行（Status-Line）
@@ -29,7 +35,6 @@ tags: 网络
         - http 协议版本
         - 状态码（Status Code）
         - 状态码的文本描述（Reason-Phrase）
-
 - 响应头部（Response Header Fields）
     - 和请求头部类似，就是两者之间有一些不同的头部字段。
 - 回车换行（CRLF）

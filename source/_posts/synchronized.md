@@ -3,6 +3,8 @@ title: synchronized
 date: 2021-04-22 10:58:27
 tags: Java
 ---
+用于多线程同步情况下。
+<!--more-->
 # 主要规则
 1. 当两个或者多个并发线程同时访问一个object中的synchronized(this)同步代码块时，一个时间内只能有一个线程得到执行，其他线程必须要等到当前线程执行完这个代码块之后才能继续执行该代码块。
 2. 然而，当一个线程访问object中的synchronized(this)同步代码块时，其他线程仍然可以调用object中的其它非synchronized(this)同步代码块。
