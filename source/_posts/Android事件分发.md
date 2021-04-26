@@ -74,13 +74,14 @@ tags: Android
 st=>start: Start
 op1=>operation: 调用Activity.dispatchTouchEvent()
 op2=>operation: getWindow().superDispatchTouchEvent()
-cond=>condition: mDecor.superDispatchTouchEvent(),即ViewGroup.dispatchTouchEvent()
-op3=>operation: Activity.onTouchEvent(),事件在边界范围内，返回false
+op3=>operation: mDecor.superDispatchTouchEvent(),即ViewGroup.dispatchTouchEvent()
+cond=>condition: ViewGroup是否处理事件
 op4=>operation: Activity.dispatchTouchEvent()返回true
+op5=>operation: Activity.onTouchEvent(),事件在边界范围内，返回false
 e=>end
 st->op1->op2->cond
-cond(yes)->op3->e
-cond(no)->op4->e
+cond(yes)->op4->e
+cond(no)->op5->e
 ```
 
 # ViewGroup事件的分发机制
