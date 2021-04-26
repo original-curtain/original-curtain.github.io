@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JVM(Java Virtual Machine，Java虚拟机),它是由软件技术模拟出计算机运行的一个虚拟的计算机。JVM也充当着一个翻译官的角色，我们编写出的Java程序，是不能够被操作系统所直接识别的，由JVM负责把程序翻译给系统“听”，告诉它我们的程序需要做什么操作。 JVM在每个操作系统中有其对应的Java解释器，解释器会将Java程序经过编译后产生的.Class文件解释成特定的机器码，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM">
+<meta property="og:url" content="http://example.com/2021/04/26/JVM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JVM(Java Virtual Machine，Java虚拟机),它是由软件技术模拟出计算机运行的一个虚拟的计算机。JVM也充当着一个翻译官的角色，我们编写出的Java程序，是不能够被操作系统所直接识别的，由JVM负责把程序翻译给系统“听”，告诉它我们的程序需要做什么操作。 JVM在每个操作系统中有其对应的Java解释器，解释器会将Java程序经过编译后产生的.Class文件解释成特定的机器码，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-26T05:14:00.000Z">
+<meta property="article:modified_time" content="2021-04-26T06:43:41.929Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/04/26/JVM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>JVM | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/26/JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-26 13:14:00 / Modified: 14:43:41" itemprop="dateCreated datePublished" datetime="2021-04-26T13:14:00+08:00">2021-04-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>JVM(Java Virtual Machine，Java虚拟机),它是由软件技术模拟出计算机运行的一个虚拟的计算机。JVM也充当着一个翻译官的角色，我们编写出的Java程序，是不能够被操作系统所直接识别的，由JVM负责把程序翻译给系统“听”，告诉它我们的程序需要做什么操作。</p>
+<p>JVM在每个操作系统中有其对应的Java解释器，解释器会将Java程序经过编译后产生的.Class文件解释成特定的机器码，被操作系统所识别，实现一次编译到处运行。</p>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25713880">https://zhuanlan.zhihu.com/p/25713880</a></p>
+<h1 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h1><ul>
+<li>类加载系统（ClassLoader）：在JVM启动时或者在类运行时将需要的class加载到JVM中。</li>
+<li>内存空间（也叫运行时数据区）：是在JVM运行的时候所分配的内存区，运行时内存区主要可以划分为5个区域；</li>
+<li>执行引擎：负责执行class文件中包含的指令；</li>
+<li>本地库接口：主要是调用C或C++实现的本地方法及返回结果；</li>
+</ul>
+<h1 id="类加载子系统"><a href="#类加载子系统" class="headerlink" title="类加载子系统"></a>类加载子系统</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25228545">https://zhuanlan.zhihu.com/p/25228545</a></p>
+<h2 id="加载器"><a href="#加载器" class="headerlink" title="加载器"></a>加载器</h2><p>JVM的类加载是通过ClassLoader及其子类来完成的</p>
+<ul>
+<li>Bootstrap ClassLoader 负责加载$JAVA_HOME中 jre/lib/rt.jar 里所有的class或Xbootclassoath选项指定的jar包。由C++实现，不是ClassLoader子类</li>
+<li>Extension ClassLoader 负责加载java平台中扩展功能的一些jar包，包括$JAVA_HOME中jre/lib/*.jar 或 -Djava.ext.dirs指定目录下的jar包。</li>
+<li>App ClassLoader 负责加载classpath中指定的jar包及 Djava.class.path 所指定目录下的类和jar包</li>
+<li>Custom ClassLoader 通过java.lang.ClassLoader的子类自定义加载class，属于应用程序根据自身需要自定义的ClassLoader，如tomcat、jboss都会根据j2ee规范自行实现ClassLoader</li>
+</ul>
+<h2 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h2><ul>
+<li>装载：查找并加载类的二进制数据（查找和导入Class文件）</li>
+<li>链接<ul>
+<li>验证：确保被加载的类的正确性</li>
+<li>准备：为类的静态变量分配内存，并将其初始化为默认值</li>
+<li>解析：把类中的符号引用转换为直接引用</li>
+</ul>
+</li>
+<li>初始化：对类的静态变量，静态代码块执行初始化操作<ul>
+<li>类什么时候才被初始化<ul>
+<li>创建类的实例，也就是new一个对象</li>
+<li>访问某个类或接口的静态变量，或者对该静态变量赋值</li>
+<li>调用类的静态方法</li>
+<li>反射（Class.forName(“com.lyj.load”)）</li>
+<li>初始化一个类的子类（会首先初始化子类的父类</li>
+<li>JVM启动时标明的启动类，即文件名和类名相同的那个类</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h1><ul>
+<li>方法区<ul>
+<li>在JVM中，类型信息和类静态变量都保存在方法区中，类型信息是由类加载器在类加载的过程中从类文件中提取出来的信息。</li>
+<li>需要注意的一点是，常量池也存放于方法区中。</li>
+<li>程序中所有的线程共享一个方法区，所以访问方法区的信息必须确保线程是安全的。如果有两个线程同时去加载一个类，那么只能有一个线程被允许去加载这个类，另一个必须等待。</li>
+</ul>
+</li>
+<li>堆区<ul>
+<li>当Java创建一个类的实例对象或者数组时，都在堆中为新的对象分配内存。</li>
+<li>虚拟机中只有一个堆，程序中所有的线程都共享它。</li>
+</ul>
+</li>
+<li>栈区<ul>
+<li>在Java栈中只保存基础数据类型和自定义对象的引用，注意只是对象的引用而不是对象本身哦，对象是保存在堆区中的。</li>
+<li>像String、Integer、Byte、Short、Long、Character、Boolean这六个属于包装类型，它们是存放于堆中的。</li>
+<li>栈内的数据在超出其作用域后，会被自动释放掉，它不由JVM GC管理。</li>
+<li>每一个线程都包含一个栈区，每个栈中的数据都是私有的，其他栈不能访问。</li>
+</ul>
+</li>
+<li>本地方法栈：专门为native方法服务的，例如：C、C++方法</li>
+<li>程序计数器(PC Register)：保存当前线程执行的内存地址。由于JVM程序是多线程执行的，所以为了保证线程切换回来后，还能恢复到原先状态，就需要一个独立的计数器，记录中断的地方，可见程序计数器也是线程私有的</li>
+</ul>
+<h1 id="JVM-GC（垃圾回收机制）"><a href="#JVM-GC（垃圾回收机制）" class="headerlink" title="JVM GC（垃圾回收机制）"></a>JVM GC（垃圾回收机制）</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25539690">https://zhuanlan.zhihu.com/p/25539690</a></p>
+<h2 id="JVM-GC回收哪个区域内的垃圾"><a href="#JVM-GC回收哪个区域内的垃圾" class="headerlink" title="JVM GC回收哪个区域内的垃圾"></a>JVM GC回收哪个区域内的垃圾</h2><p>JVM GC只回收堆区和方法区内的对象。而栈区的数据，在超出作用域后会被JVM自动释放掉，所以其不在JVM GC的管理范围内</p>
+<h2 id="JVM-GC怎么判断对象可以被回收了"><a href="#JVM-GC怎么判断对象可以被回收了" class="headerlink" title="JVM GC怎么判断对象可以被回收了"></a>JVM GC怎么判断对象可以被回收了</h2><ul>
+<li>对象没有引用</li>
+<li>作用域发生未捕获异常</li>
+<li>程序在作用域正常执行完毕</li>
+<li>程序执行了System.exit()</li>
+<li>程序发生意外终止（被杀线程等）</li>
+</ul>
+<p>在Java程序中不能显式的分配和注销缓存，因为这些事情JVM都帮我们做了，那就是GC。</p>
+<p>有些时候我们可以将相关的对象设置成null 来试图显示的清除缓存，但是并不是设置为null 就会一定被标记为可回收，有可能会发生逃逸。</p>
+<p>将对象设置成null 至少没有什么坏处，但是使用System.gc() 便不可取了，使用System.gc() 时候并不是马上执行GC操作，而是会等待一段时间，甚至不执行，而且System.gc() 如果被执行，会触发Full GC ，这非常影响性能。</p>
+<h2 id="按代的垃圾回收机制"><a href="#按代的垃圾回收机制" class="headerlink" title="按代的垃圾回收机制"></a>按代的垃圾回收机制</h2><ul>
+<li>新生代（Young generation）：绝大多数最新被创建的对象都会被分配到这里，由于大部分在创建后很快变得不可达，很多对象被创建在新生代，然后“消失”。对象从这个区域“消失”的过程我们称之为：Minor GC </li>
+<li>老年代（Old generation）：对象没有变得不可达，并且从新生代周期中存活了下来，会被拷贝到这里。其区域分配的空间要比新生代多。也正由于其相对大的空间，发生在老年代的GC次数要比新生代少得多。对象从老年代中消失的过程，称之为：Major GC 或者 Full GC。</li>
+<li>持久代（Permanent generation）也称之为 方法区（Method area）：用于保存类常量以及字符串常量。注意，这个区域不是用于存储那些从老年代存活下来的对象，这个区域也可能发生GC。发生在这个区域的GC事件也被算为 Major GC 。只不过在这个区域发生GC的条件非常严苛，必须符合以下三种条件才会被回收：<ol>
+<li>所有实例被回收</li>
+<li>加载该类的ClassLoader 被回收</li>
+<li>Class 对象无法通过任何途径访问（包括反射）</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/26/%E5%8F%8D%E5%B0%84/" rel="prev" title="反射">
+      <i class="fa fa-chevron-left"></i> 反射
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">体系结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">类加载子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">加载过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">3.</span> <span class="nav-text">内存分配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-GC%EF%BC%88%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">JVM GC（垃圾回收机制）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-GC%E5%9B%9E%E6%94%B6%E5%93%AA%E4%B8%AA%E5%8C%BA%E5%9F%9F%E5%86%85%E7%9A%84%E5%9E%83%E5%9C%BE"><span class="nav-number">4.1.</span> <span class="nav-text">JVM GC回收哪个区域内的垃圾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-GC%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E5%8F%AF%E4%BB%A5%E8%A2%AB%E5%9B%9E%E6%94%B6%E4%BA%86"><span class="nav-number">4.2.</span> <span class="nav-text">JVM GC怎么判断对象可以被回收了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E4%BB%A3%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">4.3.</span> <span class="nav-text">按代的垃圾回收机制</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
