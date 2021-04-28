@@ -145,6 +145,459 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/26/JNI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/26/JNI/" class="post-title-link" itemprop="url">JNI</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-26 11:16:57 / Modified: 12:06:29" itemprop="dateCreated datePublished" datetime="2021-04-26T11:16:57+08:00">2021-04-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>JNI（Java Native Interface，Java本地接口），用于打通Java层与Native(C/C++)层。</p>
+<p>Android系统在启动启动过程中，先启动Kernel创建init进程，紧接着由init进程fork第一个横穿Java和C/C++的进程，即Zygote进程。Zygote启动过程中会AndroidRuntime.cpp中的startVm创建虚拟机，VM创建完成后，紧接着调用startReg完成虚拟机中的JNI方法注册。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/26/JNI/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/Android-Framework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/25/Android-Framework/" class="post-title-link" itemprop="url">Android Framework</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-25 19:49:59" itemprop="dateCreated datePublished" datetime="2021-04-25T19:49:59+08:00">2021-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-26 11:15:57" itemprop="dateModified" datetime="2021-04-26T11:15:57+08:00">2021-04-26</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Android系统的构成，从上到下依次是：</p>
+<ul>
+<li>Application应用层：应用层，即我们所安装的所有应用</li>
+<li>Framework框架层：应用框架层，全部是用Java语言编写的，供开发人员调用</li>
+<li>Library系统库层<ul>
+<li>用C语言编写的完成Android核心功能的一些类库，如：OpenGL|ES（图形图像引擎简化版）、WebKit（浏览器内核）、SQLite（轻量级数据库）、Surface Manager（界面管理器）、Media Framework（多媒体框架）、FreeType（字体类库）、SGL（另一个图形图像引擎）、SSL（基于TCP的安全协议）、libc（零散的类库）。</li>
+<li>其中还有AdnroidRuntime<ul>
+<li>Core Libraries：核心类库。</li>
+<li>Dalvik Virtual Machine：Android底层是Linux系统，使用C、C++语言编写的，所以Android程序（Java语言编写）要在Linux上运行就需要虚拟机，也就是DVM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Linux内核层<ul>
+<li>Linux核心，Android系统是基于Linux系统修改过来的，Android底层都是Linux的东西，大多都是操作硬件的一些驱动，如Display Driver、Audio Drivers等等。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/25/Android-Framework/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/25/View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">View的绘制流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-25 17:13:29 / Modified: 17:34:25" itemprop="dateCreated datePublished" datetime="2021-04-25T17:13:29+08:00">2021-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>View的绘制，有三个步骤：测量（measure），布局（layout），绘制（draw）, 从DecorView自上而下遍历整个View树，注意是所有View执行完一个步骤后，再进行下一步，而不是一个View执行完所有步骤再遍历下一个View。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/25/View%E7%9A%84%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/" class="post-title-link" itemprop="url">Android事件分发</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-25 14:32:58 / Modified: 19:45:04" itemprop="dateCreated datePublished" datetime="2021-04-25T14:32:58+08:00">2021-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一个事件产生后，事件先传递到Activity，再传到ViewGroup，最终传到View.</p>
+<p>其主要通过一下三个方法完成事件传递：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>调用时刻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dispatchTouchEvent()</td>
+<td>传递点击事件</td>
+<td>当事件能传递到当前View时调用</td>
+</tr>
+<tr>
+<td>onTouchEvent()</td>
+<td>处理点击事件</td>
+<td>在dispatchTouchEvent()内部调用</td>
+</tr>
+<tr>
+<td>onInterceptTouchEvent()</td>
+<td>判断是否拦截某个事件（只存在于ViewGroup，普通View没有）</td>
+<td>在ViewGroup的dispatchTouchEvent()内调用</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/carson_ho/article/details/54136311">https://blog.csdn.net/carson_ho/article/details/54136311</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/24/Glide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/24/Glide/" class="post-title-link" itemprop="url">Glide</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-24 16:17:59 / Modified: 17:21:24" itemprop="dateCreated datePublished" datetime="2021-04-24T16:17:59+08:00">2021-04-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>GlideV4的源码分析，其添加依赖导入位为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#39;com.github.bumptech.glide:glide:4.9.0&#39;</span><br></pre></td></tr></table></figure>
+<p>简单使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里便是与 Glide 3+ 的不同</span><br><span class="line">RequestOptions options &#x3D; new RequestOptions()</span><br><span class="line">        .placeholder(R.drawable.loading);</span><br><span class="line">&#x2F;&#x2F; 它需要一个</span><br><span class="line">Glide.with(this)</span><br><span class="line">     .load(url)</span><br><span class="line">     .apply(options)</span><br><span class="line">     .into(imageView);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/24/Glide/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/22/%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/22/%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB/" class="post-title-link" itemprop="url">非静态内部类和静态内部类</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-22 11:21:49" itemprop="dateCreated datePublished" datetime="2021-04-22T11:21:49+08:00">2021-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-24 16:05:37" itemprop="dateModified" datetime="2021-04-24T16:05:37+08:00">2021-04-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>内部类：就是我是你的一部分，我了解你，我知道你的全部，没有你就没有我。（所以内部类对象是以外部类对象存在为前提的）</p>
+<p>静态内部类：就是我跟你没关系，自己可以完全独立存在，但是我就借你的壳用一下，来隐藏自己。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/22/%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/22/http/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -541,7 +994,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -20,28 +20,33 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="线程池线程方法线程中start和run方法 调用start()方法时你将创建新的线程，并且执行在run()方法里的代码 调用run()方法，它不会创建新的线程也不会执行调用线程的代码。  wait和sleep方法最大的不同是在等待时wait会释放锁，而sleep一直持有锁。Wait通常被用于线程间交互，sleep通常被用于暂停执行。 Thread.sleep(0)的作用由于Java采用抢占式的线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java多线程">
+<meta property="og:url" content="http://example.com/2021/04/28/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="线程池线程方法线程中start和run方法 调用start()方法时你将创建新的线程，并且执行在run()方法里的代码 调用run()方法，它不会创建新的线程也不会执行调用线程的代码。  wait和sleep方法最大的不同是在等待时wait会释放锁，而sleep一直持有锁。Wait通常被用于线程间交互，sleep通常被用于暂停执行。 Thread.sleep(0)的作用由于Java采用抢占式的线程">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-28T12:05:27.000Z">
+<meta property="article:modified_time" content="2021-04-28T12:42:52.368Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2021/04/28/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Hexo</title>
+  <title>Java多线程 | Hexo</title>
   
 
 
@@ -139,210 +144,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E5%8F%8D%E5%B0%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E5%8F%8D%E5%B0%84/" class="post-title-link" itemprop="url">Java反射</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 21:19:09 / Modified: 21:28:02" itemprop="dateCreated datePublished" datetime="2021-04-28T21:19:09+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>反射是为了能够动态的加载一个类，动态的调用一个方法，动态的访问一个属性等动态要求而设计的。它的出发点就在于JVM会为每个类创建一个java.lang.Class类的实例，通过该对象可以获取这个类的信息，然后通过使用java.lang.reflect包下得API以达到各种动态需求。</li>
-<li>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性，这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E5%8F%8D%E5%B0%84/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD/" class="post-title-link" itemprop="url">Java类加载</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 21:00:58 / Modified: 21:18:31" itemprop="dateCreated datePublished" datetime="2021-04-28T21:00:58+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>JVM的类加载是通过ClassLoader及其子类来完成的，是虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可被虚拟机直接使用的Java类型的过程。另外，类型的加载、连接和初始化过程都是在程序运行期完成的，从而通过牺牲一些性能开销来换取Java程序的高度灵活性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="post-title-link" itemprop="url">Java虚拟机</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 20:43:27 / Modified: 21:03:13" itemprop="dateCreated datePublished" datetime="2021-04-28T20:43:27+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>JVM(Java Virtual Machine，Java虚拟机),它是由软件技术模拟出计算机运行的一个虚拟的计算机。JVM也充当着一个翻译官的角色，我们编写出的Java程序，是不能够被操作系统所直接识别的，由JVM负责把程序翻译给系统“听”，告诉它我们的程序需要做什么操作。</p>
-<p>JVM在每个操作系统中有其对应的Java解释器，解释器会将Java程序经过编译后产生的.Class文件解释成特定的机器码，被操作系统所识别，实现一次编译到处运行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -358,10 +163,9 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">Java多线程</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Java多线程
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -385,7 +189,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h1 id="线程方法"><a href="#线程方法" class="headerlink" title="线程方法"></a>线程方法</h1><h2 id="线程中start和run方法"><a href="#线程中start和run方法" class="headerlink" title="线程中start和run方法"></a>线程中start和run方法</h2><ul>
+        <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h1 id="线程方法"><a href="#线程方法" class="headerlink" title="线程方法"></a>线程方法</h1><h2 id="线程中start和run方法"><a href="#线程中start和run方法" class="headerlink" title="线程中start和run方法"></a>线程中start和run方法</h2><ul>
 <li>调用start()方法时你将创建新的线程，并且执行在run()方法里的代码</li>
 <li>调用run()方法，它不会创建新的线程也不会执行调用线程的代码。</li>
 </ul>
@@ -498,428 +302,37 @@
 </li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/JavaIO%E6%B5%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/JavaIO%E6%B5%81/" class="post-title-link" itemprop="url">JavaIO流</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 19:52:04 / Modified: 20:04:53" itemprop="dateCreated datePublished" datetime="2021-04-28T19:52:04+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>输入流就是从外部文件输入到内存，输出流主要是从内存输出到文件。</p>
-<p>IO流中有很多类，IO流主要分为字符流和字节流。</p>
-<ul>
-<li>在应用中，经常要完全是字符的一段文本输出去或读进来,由于这样的需求很广泛，所以专门提供了字符流的包装类。</li>
-<li>字节流的操作不会经过缓冲区（内存）而是直接操作文本本身的，而字符流的操作会先经过缓冲区（内存）然后通过缓冲区再操作文件。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/JavaIO%E6%B5%81/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Java数据结构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 19:20:09 / Modified: 19:51:21" itemprop="dateCreated datePublished" datetime="2021-04-28T19:20:09+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>JDK提供了一组主要的数据结构实现，如List、Map、Set、Queue 等常用数据结构。这些数据都继承自java.util.Collection接口，并位于java.util包内</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/28/JavaIO%E6%B5%81/" rel="prev" title="JavaIO流">
+      <i class="fa fa-chevron-left"></i> JavaIO流
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/28/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="next" title="Java虚拟机">
+      Java虚拟机 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">Java面向对象</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 19:02:45 / Modified: 19:19:42" itemprop="dateCreated datePublished" datetime="2021-04-28T19:02:45+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Java面向对象的四大特性是封装、继承、多态和抽象，其中Java是单继承，不像c++是多继承。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/28/Java%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Java基础</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-28 18:36:02 / Modified: 19:01:05" itemprop="dateCreated datePublished" datetime="2021-04-28T18:36:02+08:00">2021-04-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="和equal-的区别"><a href="#和equal-的区别" class="headerlink" title="==和equal()的区别"></a>==和equal()的区别</h1><p>对于==：</p>
-<ul>
-<li>基本类型：比较值是否相同</li>
-<li>引用类型：比较引用是否相同
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/28/Java%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/27/Android%E7%BB%84%E4%BB%B6%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/27/Android%E7%BB%84%E4%BB%B6%E5%8C%96/" class="post-title-link" itemprop="url">Android组件化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-04-27 13:41:49" itemprop="dateCreated datePublished" datetime="2021-04-27T13:41:49+08:00">2021-04-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-28 21:28:59" itemprop="dateModified" datetime="2021-04-28T21:28:59+08:00">2021-04-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>组件化与模块化的区别是：模块之间存在复杂的依赖关系，而组件化去除了模块间的耦合，使得每个业务组件可以独立当做App存在，对于其他组件没有直接的依赖关系。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6881116198889586701#heading-7">https://juejin.cn/post/6881116198889586701#heading-7</a><br><a target="_blank" rel="noopener" href="https://github.com/yangchong211/YCBlogs">https://github.com/yangchong211/YCBlogs</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/26/JVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/26/JVM/" class="post-title-link" itemprop="url">JVM</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-04-26 13:14:00 / Modified: 14:43:41" itemprop="dateCreated datePublished" datetime="2021-04-26T13:14:00+08:00">2021-04-26</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>JVM(Java Virtual Machine，Java虚拟机),它是由软件技术模拟出计算机运行的一个虚拟的计算机。JVM也充当着一个翻译官的角色，我们编写出的Java程序，是不能够被操作系统所直接识别的，由JVM负责把程序翻译给系统“听”，告诉它我们的程序需要做什么操作。</p>
-<p>JVM在每个操作系统中有其对应的Java解释器，解释器会将Java程序经过编译后产生的.Class文件解释成特定的机器码，被操作系统所识别，实现一次编译到处运行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/26/JVM/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -971,6 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">1.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">线程方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%ADstart%E5%92%8Crun%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">线程中start和run方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wait%E5%92%8Csleep%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">wait和sleep方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-sleep-0-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">Thread.sleep(0)的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yield-%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">yield()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join-%E6%96%B9%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">join()方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="nav-number">3.1.</span> <span class="nav-text">预防死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">4.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#synchronized"><span class="nav-number">5.</span> <span class="nav-text">synchronized</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E9%94%81%E4%BB%80%E4%B9%88"><span class="nav-number">5.1.</span> <span class="nav-text">synchronized锁什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchonized-this-%E5%92%8Csynchonized-object-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.2.</span> <span class="nav-text">synchonized(this)和synchonized(object)区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronize%E4%BD%9C%E7%94%A8%E4%BA%8E%E6%96%B9%E6%B3%95%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E5%8C%BA%E5%88%AB"><span class="nav-number">5.3.</span> <span class="nav-text">Synchronize作用于方法和静态方法区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#volatile"><span class="nav-number">6.</span> <span class="nav-text">volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AD%98%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%90%8E%E4%BD%95%E6%97%B6%E4%BC%9A%E5%86%99%E5%88%B0%E4%B8%BB%E5%86%85%E5%AD%98%E4%B8%AD"><span class="nav-number">6.1.</span> <span class="nav-text">线程在工作内存进行操作后何时会写到主内存中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E7%9A%84happens-before%E5%85%B3%E7%B3%BB"><span class="nav-number">6.2.</span> <span class="nav-text">volatile的happens-before关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAint%E5%8F%98%E9%87%8F%EF%BC%8C%E7%94%A8volatile%E4%BF%AE%E9%A5%B0%EF%BC%8C%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%BB%E6%93%8D%E4%BD%9C-%EF%BC%8C%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%90%97"><span class="nav-number">6.3.</span> <span class="nav-text">一个int变量，用volatile修饰，多线程去操作++，线程安全吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAS"><span class="nav-number">7.</span> <span class="nav-text">CAS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS%E5%AE%9E%E7%8E%B0%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-number">7.1.</span> <span class="nav-text">CAS实现原子操作会出现什么问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">8.</span> <span class="nav-text">多线程同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Runnable%E6%8E%A5%E5%8F%A3%E5%92%8CCallable%E6%8E%A5%E5%8F%A3"><span class="nav-number">9.</span> <span class="nav-text">Runnable接口和Callable接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">10.</span> <span class="nav-text">乐观锁和悲观锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8F%AF%E4%BB%A5%E4%BF%9D%E8%AF%81%E5%B9%B6%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E5%8F%AF%E8%A7%81%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E7%9A%84%E6%8E%AA%E6%96%BD%EF%BC%9F"><span class="nav-number">11.</span> <span class="nav-text">在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

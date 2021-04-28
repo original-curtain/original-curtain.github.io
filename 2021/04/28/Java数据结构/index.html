@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JDK提供了一组主要的数据结构实现，如List、Map、Set、Queue 等常用数据结构。这些数据都继承自java.util.Collection接口，并位于java.util包内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java数据结构">
+<meta property="og:url" content="http://example.com/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="JDK提供了一组主要的数据结构实现，如List、Map、Set、Queue 等常用数据结构。这些数据都继承自java.util.Collection接口，并位于java.util包内">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-28T11:20:09.000Z">
+<meta property="article:modified_time" content="2021-04-28T11:51:21.112Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java数据结构 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java数据结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-28 19:20:09 / Modified: 19:51:21" itemprop="dateCreated datePublished" datetime="2021-04-28T19:20:09+08:00">2021-04-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>JDK提供了一组主要的数据结构实现，如List、Map、Set、Queue 等常用数据结构。这些数据都继承自java.util.Collection接口，并位于java.util包内</p>
+<span id="more"></span>
+<h1 id="List"><a href="#List" class="headerlink" title="List"></a>List</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><ul>
+<li>基于动态数组集合，可以动态的增加、删除元素，动态扩容等，默认初始容量10，超出上限会扩容至： int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); 也就是原来容量的1.5倍</li>
+<li>优点：按下标索引速度快(O(1))。缺点：插入删除会慢(O(n))。</li>
+</ul>
+<h3 id="在arrayList中System-arraycopy-和Arrays-copyOf-方法区别联系"><a href="#在arrayList中System-arraycopy-和Arrays-copyOf-方法区别联系" class="headerlink" title="在arrayList中System.arraycopy()和Arrays.copyOf()方法区别联系"></a>在arrayList中System.arraycopy()和Arrays.copyOf()方法区别联系</h3><ul>
+<li>copyOf()内部调用了System.arraycopy()方法</li>
+<li>区别：<ol>
+<li>arraycopy()需要目标数组，将原数组拷贝到你自己定义的数组里，而且可以选择拷贝的起点和长度以及放入新数组中的位置</li>
+<li>copyOf()是系统自动在内部新建一个数组，并返回该数组。</li>
+</ol>
+</li>
+</ul>
+<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><ul>
+<li>基于链表的集合，是一个双向链表，没有初始化大小，也没有扩容的机制，会一直在前面或者后面新增Node。</li>
+<li>优点：便于存取，只要改变头尾节点指向 (O(1))。缺点：索引慢，极端情况会出现从头结点遍历到最后一个节点的情况 (O(n))</li>
+</ul>
+<h2 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h2><ul>
+<li>也是基于数组的一个集合，对一些操作数据的方法加了synchronized，可以看做是ArrayList一个同步、线程安全的版本</li>
+<li>优点：线程安全的。缺点：同步必然会导致效率慢。</li>
+</ul>
+<h2 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h2><ul>
+<li>CopyOnWriteArrayList是ArrayList的一个线程安全的变体，其中所有可变操作（add、set等等）都是通过对底层数组进行一次新的复制来实现的。相比较于ArrayList它的写操作要慢一些，因为它需要实例的快照</li>
+<li>CopyOnWriteArrayList中写操作需要大面积复制数组，所以性能肯定很差，但是读操作因为操作的对象和写操作不是同一个对象，读之间也不需要加锁，读和写之间的同步处理只是在写完后通过一个简单的”=”将引用指向新的数组对象上来，这个几乎不需要时间，这样读操作就很快很安全，适合在多线程里使用，绝对不会发生ConcurrentModificationException ，因此CopyOnWriteArrayList适合使用在读操作远远大于写操作的场景里，比如缓存</li>
+</ul>
+<h2 id="Arrays-asList方法后的List可以扩容吗"><a href="#Arrays-asList方法后的List可以扩容吗" class="headerlink" title="Arrays.asList方法后的List可以扩容吗"></a>Arrays.asList方法后的List可以扩容吗</h2><p>不能，asList返回的List为只读的。其原因为：asList方法返回的ArrayList是Arrays的一个内部类，并且没有实现add，remove等操作</p>
+<h1 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><ul>
+<li>HashMap 底层是数组+链表(jdk1.8是数组+链表/红黑树)，HashMap可能也是应用最多的数据结构了。</li>
+<li>允许存在一个为null的key和任意个为null的value</li>
+<li>采用链表散列的数据结构，即数组和链表的结合；初始容量为16，填充因子默认为0.75，扩容时是当前容量翻倍，即2capacity</li>
+</ul>
+<h3 id="HashMap存储两个对象的hashcode相同会发生什么"><a href="#HashMap存储两个对象的hashcode相同会发生什么" class="headerlink" title="HashMap存储两个对象的hashcode相同会发生什么"></a>HashMap存储两个对象的hashcode相同会发生什么</h3><p>因为hashcode相同，所以它们的bucket位置相同，‘碰撞’会发生。因为HashMap使用链表存储对象，这个Entry(包含有键值对的Map.Entry对象)会存储在链表中。</p>
+<h3 id="如果两个键的hashcode相同，你如何获取值对象"><a href="#如果两个键的hashcode相同，你如何获取值对象" class="headerlink" title="如果两个键的hashcode相同，你如何获取值对象"></a>如果两个键的hashcode相同，你如何获取值对象</h3><ul>
+<li>当调用get()方法，HashMap会使用键对象的hashcode找到bucket位置，然后获取值对象。当然如果有两个值对象储存在同一个bucket，将会遍历链表直到找到值对象。</li>
+<li>在没有值对象去比较，如何确定确定找到值对象的？因为HashMap在链表中存储的是键值对，找到bucket位置之后，会调用keys.equals()方法去找到链表中正确的节点，最终找到要找的值对象。</li>
+</ul>
+<h3 id="HashMap为什么不直接使用hashCode-处理后的哈希值直接作为table的下标"><a href="#HashMap为什么不直接使用hashCode-处理后的哈希值直接作为table的下标" class="headerlink" title="HashMap为什么不直接使用hashCode()处理后的哈希值直接作为table的下标"></a>HashMap为什么不直接使用hashCode()处理后的哈希值直接作为table的下标</h3><p>hashCode()方法返回的是int整数类型，其范围为-(2^31)<del>(2^31-1)，约有40亿个映射空间，而HashMap的容量范围是在16（初始化默认值）</del>2 ^ 30，HashMap通常情况下是取不到最大值的，并且设备上也难以提供这么多的存储空间，从而导致通过hashCode()计算出的哈希值可能不在数组大小范围内，进而无法匹配存储位置；</p>
+<h3 id="HashMap是使用了哪些方法来有效解决哈希冲突的"><a href="#HashMap是使用了哪些方法来有效解决哈希冲突的" class="headerlink" title="HashMap是使用了哪些方法来有效解决哈希冲突的"></a>HashMap是使用了哪些方法来有效解决哈希冲突的</h3><ol>
+<li>使用链地址法（使用散列表）来链接拥有相同hash值的数据；</li>
+<li>使用2次扰动函数（hash函数）来降低哈希冲突的概率，使得数据分布更平均；</li>
+<li>引入红黑树进一步降低遍历的时间复杂度，使得遍历更快</li>
+</ol>
+<h3 id="为什么HashMap中String、Integer这样的包装类适合作为K？为啥不用其他作key值？"><a href="#为什么HashMap中String、Integer这样的包装类适合作为K？为啥不用其他作key值？" class="headerlink" title="为什么HashMap中String、Integer这样的包装类适合作为K？为啥不用其他作key值？"></a>为什么HashMap中String、Integer这样的包装类适合作为K？为啥不用其他作key值？</h3><ul>
+<li>都是final类型，即不可变性，保证key的不可更改性，不会存在获取hash值不同的情况</li>
+<li>内部已重写了equals()、hashCode()等方法，遵守了HashMap内部的规范（不清楚可以去上面看看putValue的过程），不容易出现Hash值计算错误的情况；</li>
+</ul>
+<h3 id="想要让自己的Object作为K应该怎么办呢"><a href="#想要让自己的Object作为K应该怎么办呢" class="headerlink" title="想要让自己的Object作为K应该怎么办呢"></a>想要让自己的Object作为K应该怎么办呢</h3><p>重写hashCode()和equals()方法</p>
+<h2 id="SparseArray"><a href="#SparseArray" class="headerlink" title="SparseArray"></a>SparseArray</h2><ul>
+<li>位于android.util，Android 中的数据结构，针对移动端做了优化，在数据量比较少的情况下，性能会好过 HashMap，类似于 HashMap，key:int ,value:object 。<ol>
+<li>key  和 value  采用数组进行存储。存储 key 的数组是 int 类型，不需要进行装箱操作。提供了速度。</li>
+<li>采用二分查找法，在插入进行了排序，所以两个数组是按照从小到大进行排序的。</li>
+<li>在查找的时候，进行二分查找，数据量少的情况下，速度比较快。</li>
+</ol>
+</li>
+</ul>
+<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>HashMap是无序的，而LinkedHashMap是有序的HashMap，默认为插入顺序，还可以是访问顺序，基本原理是其内部通过Entry维护了一个双向链表，负责维护Map的迭代顺序</p>
+<h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2><ul>
+<li>其实就是HashMap的一个线程安全版本，像Vector和ArrayList的关系一样，对内部的方法都加了synchronized关键字修饰。</li>
+<li>不允许使用null作为key和value</li>
+<li>初始容量为11，填充因子默认为0.75，扩容时是容量翻倍+1，即2capacity+1</li>
+<li>缺点：因为采用synchronized保证同步，每次都会锁住整个map，所以高并发线程在争夺同一把锁的时候性能急剧下降</li>
+</ul>
+<h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><ul>
+<li>平常开发中用的不多，是一个红黑树版本的map，实现了NavigableMap&lt;K,V&gt;并且NavigableMap又继承了SortedMap&lt;K,V&gt;类，SortedMap接口有一个Comparator&lt;? super K&gt; comparator();比较器，所以TreeMap是支持比较排序的。</li>
+</ul>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><ul>
+<li>底层也是HashMap，同时保证了线程安全，与HashTable不同的ConcurrentHashMap采用分段锁思想，抛弃了使用synchronized修饰操作方法的同步方式。</li>
+<li>1.7与1.8的区别：<ol>
+<li>因为底层是HashMap，so 1.8之后也变成了数组+链表/红黑树。</li>
+<li>1.8之后放弃了分段锁，采用了synchronized+CAS来保证并发</li>
+</ol>
+<ul>
+<li>1.8为何放弃分段锁： <ol>
+<li>我认为主要是1.8对synchronized进行了优化(偏向锁、轻量级锁、自旋锁、自适宜自旋)</li>
+<li>加入多个分段锁浪费内存空间。</li>
+<li>生产环境中， map在放入时竞争同一个锁的概率非常小，分段锁反而会造成更新等操作的长时间等待。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h1><h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><ul>
+<li>HashSet 基于HashMap实现，利用Map的key不能重复来实现Set的元素唯一性</li>
+</ul>
+<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><ul>
+<li>LinkedHashSet 基于LinkedHashMap实现，继承自HashSet，可以看出是一个有序的Set（可以像LinkedHashMap自定义排序）</li>
+</ul>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p>是SortedSet接口的实现类，根据元素实际值的大小进行排序；采用红黑树的数据结构来存储集合元素；支持两种排序方法：自然排序（默认情况）和定制排序。前者通过实现Comparable接口中的compareTo()比较两个元素之间大小关系，然后按升序排列；后者通过实现Comparator接口中的compare()比较两个元素之间大小关系，实现定制排列</p>
+<h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><h1 id="Collections-sort和Arrays-sort的区别"><a href="#Collections-sort和Arrays-sort的区别" class="headerlink" title="Collections.sort和Arrays.sort的区别"></a>Collections.sort和Arrays.sort的区别</h1><ul>
+<li>Arrays.sort()是一个经过调优的快速排序</li>
+<li>Collections.sort()是一个经过修改的合并排序算法</li>
+<li>Collections.sort专门给List排序，而Arrays.sort专门给数组进行排序</li>
+<li>Collections.sort排序底层调用的是Arrays.sort方法</li>
+</ul>
+<h1 id="Java集合的快速失败机制-“fail-fast”"><a href="#Java集合的快速失败机制-“fail-fast”" class="headerlink" title="Java集合的快速失败机制 “fail-fast”"></a>Java集合的快速失败机制 “fail-fast”</h1><ul>
+<li>例如：假设存在两个线程（线程1、线程2），线程1通过Iterator在遍历集合A中的元素，在某个时候线程2修改了集合A的结构（是结构上面的修改，而不是简单的修改集合元素的内容），那么这个时候程序就会抛出 ConcurrentModificationException 异常，从而产生fail-fast机制。</li>
+<li>原因：<ul>
+<li>迭代器在遍历时直接访问集合中的内容，并且在遍历过程中使用一个 modCount 变量。集合在被遍历期间如果内容发生变化，就会改变modCount的值。每当迭代器使用hashNext()/next()遍历下一个元素之前，都会检测modCount变量是否为expectedmodCount值，是的话就返回遍历；否则抛出异常，终止遍历</li>
+</ul>
+</li>
+<li>解决办法：<ol>
+<li>在遍历过程中，所有涉及到改变modCount值得地方全部加上synchronized。</li>
+<li>使用CopyOnWriteArrayList来替换ArrayList</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="Java面向对象">
+      <i class="fa fa-chevron-left"></i> Java面向对象
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/28/JavaIO%E6%B5%81/" rel="next" title="JavaIO流">
+      JavaIO流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#List"><span class="nav-number">1.</span> <span class="nav-text">List</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.1.</span> <span class="nav-text">ArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8arrayList%E4%B8%ADSystem-arraycopy-%E5%92%8CArrays-copyOf-%E6%96%B9%E6%B3%95%E5%8C%BA%E5%88%AB%E8%81%94%E7%B3%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">在arrayList中System.arraycopy()和Arrays.copyOf()方法区别联系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedList"><span class="nav-number">1.2.</span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vector"><span class="nav-number">1.3.</span> <span class="nav-text">Vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">1.4.</span> <span class="nav-text">CopyOnWriteArrayList</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays-asList%E6%96%B9%E6%B3%95%E5%90%8E%E7%9A%84List%E5%8F%AF%E4%BB%A5%E6%89%A9%E5%AE%B9%E5%90%97"><span class="nav-number">1.5.</span> <span class="nav-text">Arrays.asList方法后的List可以扩容吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Map"><span class="nav-number">2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">2.1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E5%AD%98%E5%82%A8%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84hashcode%E7%9B%B8%E5%90%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.1.</span> <span class="nav-text">HashMap存储两个对象的hashcode相同会发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%B8%A4%E4%B8%AA%E9%94%AE%E7%9A%84hashcode%E7%9B%B8%E5%90%8C%EF%BC%8C%E4%BD%A0%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%80%BC%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.1.2.</span> <span class="nav-text">如果两个键的hashcode相同，你如何获取值对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8hashCode-%E5%A4%84%E7%90%86%E5%90%8E%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E7%9B%B4%E6%8E%A5%E4%BD%9C%E4%B8%BAtable%E7%9A%84%E4%B8%8B%E6%A0%87"><span class="nav-number">2.1.3.</span> <span class="nav-text">HashMap为什么不直接使用hashCode()处理后的哈希值直接作为table的下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E6%98%AF%E4%BD%BF%E7%94%A8%E4%BA%86%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%E6%9D%A5%E6%9C%89%E6%95%88%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E7%9A%84"><span class="nav-number">2.1.4.</span> <span class="nav-text">HashMap是使用了哪些方法来有效解决哈希冲突的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88HashMap%E4%B8%ADString%E3%80%81Integer%E8%BF%99%E6%A0%B7%E7%9A%84%E5%8C%85%E8%A3%85%E7%B1%BB%E9%80%82%E5%90%88%E4%BD%9C%E4%B8%BAK%EF%BC%9F%E4%B8%BA%E5%95%A5%E4%B8%8D%E7%94%A8%E5%85%B6%E4%BB%96%E4%BD%9Ckey%E5%80%BC%EF%BC%9F"><span class="nav-number">2.1.5.</span> <span class="nav-text">为什么HashMap中String、Integer这样的包装类适合作为K？为啥不用其他作key值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E8%A6%81%E8%AE%A9%E8%87%AA%E5%B7%B1%E7%9A%84Object%E4%BD%9C%E4%B8%BAK%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%E5%91%A2"><span class="nav-number">2.1.6.</span> <span class="nav-text">想要让自己的Object作为K应该怎么办呢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SparseArray"><span class="nav-number">2.2.</span> <span class="nav-text">SparseArray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashMap"><span class="nav-number">2.3.</span> <span class="nav-text">LinkedHashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashTable"><span class="nav-number">2.4.</span> <span class="nav-text">HashTable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeMap"><span class="nav-number">2.5.</span> <span class="nav-text">TreeMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">2.6.</span> <span class="nav-text">ConcurrentHashMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set"><span class="nav-number">3.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet"><span class="nav-number">3.1.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashSet"><span class="nav-number">3.2.</span> <span class="nav-text">LinkedHashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeSet"><span class="nav-number">3.3.</span> <span class="nav-text">TreeSet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stack"><span class="nav-number">4.</span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Queue"><span class="nav-number">5.</span> <span class="nav-text">Queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Collections-sort%E5%92%8CArrays-sort%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">Collections.sort和Arrays.sort的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%9B%86%E5%90%88%E7%9A%84%E5%BF%AB%E9%80%9F%E5%A4%B1%E8%B4%A5%E6%9C%BA%E5%88%B6-%E2%80%9Cfail-fast%E2%80%9D"><span class="nav-number">7.</span> <span class="nav-text">Java集合的快速失败机制 “fail-fast”</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="反射是为了能够动态的加载一个类，动态的调用一个方法，动态的访问一个属性等动态要求而设计的。它的出发点就在于JVM会为每个类创建一个java.lang.Class类的实例，通过该对象可以获取这个类的信息，然后通过使用java.lang.reflect包下得API以达到各种动态需求。 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反射">
+<meta property="og:url" content="http://example.com/2021/04/28/Java%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="反射是为了能够动态的加载一个类，动态的调用一个方法，动态的访问一个属性等动态要求而设计的。它的出发点就在于JVM会为每个类创建一个java.lang.Class类的实例，通过该对象可以获取这个类的信息，然后通过使用java.lang.reflect包下得API以达到各种动态需求。 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-28T13:19:09.000Z">
+<meta property="article:modified_time" content="2021-04-28T13:28:02.678Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/04/28/Java%E5%8F%8D%E5%B0%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java反射 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/28/Java%E5%8F%8D%E5%B0%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java反射
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-28 21:19:09 / Modified: 21:28:02" itemprop="dateCreated datePublished" datetime="2021-04-28T21:19:09+08:00">2021-04-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li>反射是为了能够动态的加载一个类，动态的调用一个方法，动态的访问一个属性等动态要求而设计的。它的出发点就在于JVM会为每个类创建一个java.lang.Class类的实例，通过该对象可以获取这个类的信息，然后通过使用java.lang.reflect包下得API以达到各种动态需求。</li>
+<li>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性，这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<span id="more"></span>
+<h1 id="Class获取"><a href="#Class获取" class="headerlink" title="Class获取"></a>Class获取</h1>其主要通过一下三种方式获取：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Car car&#x3D;new Car();</span><br><span class="line">&#x2F;&#x2F;第一种</span><br><span class="line">Class clazz&#x3D;car.getClass();&#x2F;&#x2F;这种方法不适合基本类型如int，float等</span><br><span class="line">&#x2F;&#x2F;第二种</span><br><span class="line">Class clazz&#x3D;Car.class;</span><br><span class="line">Class clazz&#x3D;int.class;</span><br><span class="line">&#x2F;&#x2F;第三种</span><br><span class="line">Class clazz&#x3D;Class.forName(&quot;com.test.Car&quot;);&#x2F;&#x2F;使用类的全限定名称，包名加类名</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="获取修饰符"><a href="#获取修饰符" class="headerlink" title="获取修饰符"></a>获取修饰符</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Car.class.getModifiers();&#x2F;&#x2F;其返回的是int数值</span><br><span class="line">Modifier.toString(Car.class.getModfiers());&#x2F;&#x2F;int数值转化成public，abstract等</span><br></pre></td></tr></table></figure>
+
+<h1 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h1><p>获取类的属性，即变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Car.class.getDeclaredFields();&#x2F;&#x2F;获取所有属性，不包括父类继承下来的属性</span><br><span class="line">Car.class.getFields();&#x2F;&#x2F;获取所有public属性，包括父类继承下来的属性</span><br></pre></td></tr></table></figure>
+
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>获取方式如上，其方法执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Method</span><br><span class="line">public Object invoke(Object obj,Object... args)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数obj是Method所依附的Class对应的类的实例。如果这个方法是静态方法，那么obj为null。后面的args是参数</li>
+<li>invoke()返回对象是Object，需要强制转换</li>
+<li>会把异常包装到InvocationTargetException里面去，通过InvocationTargetException.getCause()可以获取真正的异常</li>
+</ul>
+<h1 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h1><ul>
+<li>Class.newInstance()只能调用无参构造函数，而Constructor.newInstance()则可以调用任何构造函数</li>
+<li>Class.newInstance()直接抛出异常，而Constructor.newInstance()会把异常包装到InvocationTargetException里面去，和Method一样</li>
+<li>Class.newInstance()要求构造方法能访问，而Constructor.newInstance()能访问private修饰的构造器</li>
+</ul>
+<h1 id="提高反射效率"><a href="#提高反射效率" class="headerlink" title="提高反射效率"></a>提高反射效率</h1><ul>
+<li>善用API：比如，尽量不要getMethods()后再遍历筛选，而直接用getMethod(methodName)来根据方法名获取方法。</li>
+<li>适当使用缓存：比如，需要多次动态创建一个类的实例的时候，有缓存的写法会比没有缓存要快很多:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1. 没有缓存</span><br><span class="line">void createInstance(String className)&#123;</span><br><span class="line">    return Class.forName(className).newInstance();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2. 缓存forName的结果</span><br><span class="line">void createInstance(String className)&#123;</span><br><span class="line">    cachedClass &#x3D; cache.get(className);</span><br><span class="line">    if (cachedClass &#x3D;&#x3D; null)&#123;</span><br><span class="line">        cachedClass &#x3D; Class.forName(className);</span><br><span class="line">        cache.set(className, cachedClass);</span><br><span class="line">    &#125;</span><br><span class="line">    return cachedClass.newInstance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="通过反射获得泛型的实际类型参数"><a href="#通过反射获得泛型的实际类型参数" class="headerlink" title="通过反射获得泛型的实际类型参数"></a>通过反射获得泛型的实际类型参数</h1><p>把泛型变量当成方法的参数，利用Method类的getGenericParameterTypes方法来获取泛型的实际类型参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class GenericTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        getParamType();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">     &#x2F;*利用反射获取方法参数的实际参数类型*&#x2F;</span><br><span class="line">    public static void getParamType() throws NoSuchMethodException&#123;</span><br><span class="line">        Method method &#x3D; GenericTest.class.getMethod(&quot;applyMap&quot;,Map.class);</span><br><span class="line">        &#x2F;&#x2F;获取方法的泛型参数的类型</span><br><span class="line">        Type[] types &#x3D; method.getGenericParameterTypes();</span><br><span class="line">        System.out.println(types[0]);</span><br><span class="line">        &#x2F;&#x2F;参数化的类型</span><br><span class="line">        ParameterizedType pType  &#x3D; (ParameterizedType)types[0];</span><br><span class="line">        &#x2F;&#x2F;原始类型</span><br><span class="line">        System.out.println(pType.getRawType());</span><br><span class="line">        &#x2F;&#x2F;实际类型参数</span><br><span class="line">        System.out.println(pType.getActualTypeArguments()[0]);</span><br><span class="line">        System.out.println(pType.getActualTypeArguments()[1]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;*供测试参数类型的方法*&#x2F;</span><br><span class="line">    public static void applyMap(Map&lt;Integer,String&gt; map)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;结果</span><br><span class="line">java.util.Map&lt;java.lang.Integer, java.lang.String&gt;</span><br><span class="line">interface java.util.Map</span><br><span class="line">class java.lang.Integer</span><br><span class="line">class java.lang.String</span><br></pre></td></tr></table></figure>
+<h2 id="getGenericParameterTypes-与-getParameterTypes区别"><a href="#getGenericParameterTypes-与-getParameterTypes区别" class="headerlink" title="getGenericParameterTypes 与 getParameterTypes区别"></a>getGenericParameterTypes 与 getParameterTypes区别</h2><ul>
+<li>getGenericParameterTypes 与 getParameterTypes 都是获取构成函数的参数类型</li>
+<li>前者返回的是Type类型，后者返回的是Class类型，由于Type顶级接口，Class也实现了该接口，因此Class类是Type的子类，Type 表示的全部类型而每个Class对象表示一个具体类型的实例，如String.class仅代表String类型。由此看来Type与 Class 表示类型几乎是相同的，只不过Type表示的范围比Class要广得多而已。当然Type还有其他子类，如：<ul>
+<li>TypeVariable：表示类型参数，可以有上界，比如：T extends Number</li>
+<li>ParameterizedType：表示参数化的类型，有原始类型和具体的类型参数，比如：List</li>
+<li>WildcardType：表示通配符类型，比如：?, ? extends Number, ? super Integer</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/28/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD/" rel="prev" title="Java类加载">
+      <i class="fa fa-chevron-left"></i> Java类加载
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Class%E8%8E%B7%E5%8F%96"><span class="nav-number">1.</span> <span class="nav-text">Class获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">获取修饰符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Field"><span class="nav-number">3.</span> <span class="nav-text">Field</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Method"><span class="nav-number">4.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constructor"><span class="nav-number">5.</span> <span class="nav-text">Constructor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E5%8F%8D%E5%B0%84%E6%95%88%E7%8E%87"><span class="nav-number">6.</span> <span class="nav-text">提高反射效率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%BE%97%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%AE%9E%E9%99%85%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">通过反射获得泛型的实际类型参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getGenericParameterTypes-%E4%B8%8E-getParameterTypes%E5%8C%BA%E5%88%AB"><span class="nav-number">7.1.</span> <span class="nav-text">getGenericParameterTypes 与 getParameterTypes区别</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
