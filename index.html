@@ -371,7 +371,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-28 20:05:27 / Modified: 20:42:52" itemprop="dateCreated datePublished" datetime="2021-04-28T20:05:27+08:00">2021-04-28</time>
+              <time title="Created: 2021-04-28 20:05:27 / Modified: 21:41:45" itemprop="dateCreated datePublished" datetime="2021-04-28T20:05:27+08:00">2021-04-28</time>
             </span>
 
           
@@ -385,119 +385,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h1 id="线程方法"><a href="#线程方法" class="headerlink" title="线程方法"></a>线程方法</h1><h2 id="线程中start和run方法"><a href="#线程中start和run方法" class="headerlink" title="线程中start和run方法"></a>线程中start和run方法</h2><ul>
-<li>调用start()方法时你将创建新的线程，并且执行在run()方法里的代码</li>
-<li>调用run()方法，它不会创建新的线程也不会执行调用线程的代码。</li>
-</ul>
-<h2 id="wait和sleep方法"><a href="#wait和sleep方法" class="headerlink" title="wait和sleep方法"></a>wait和sleep方法</h2><p>最大的不同是在等待时wait会释放锁，而sleep一直持有锁。Wait通常被用于线程间交互，sleep通常被用于暂停执行。</p>
-<h2 id="Thread-sleep-0-的作用"><a href="#Thread-sleep-0-的作用" class="headerlink" title="Thread.sleep(0)的作用"></a>Thread.sleep(0)的作用</h2><p>由于Java采用抢占式的线程调度算法，因此可能会出现某条线程常常获取到CPU控制权的情况，为了让某些优先级比较低的线程也能获取到CPU控制权，可以使用Thread.sleep(0)手动触发一次操作系统分配时间片的操作，这也是平衡CPU控制权的一种操作。</p>
-<h2 id="yield-方法"><a href="#yield-方法" class="headerlink" title="yield()方法"></a>yield()方法</h2><p>yield()方法和sleep()方法类似，也不会释放“锁标志”，区别在于，它没有参数，即yield()方法只是使当前线程重新回到可执行状态，所以执行yield()的线程有可能在进入到可执行状态后马上又被执行，另外yield()方法只能使同优先级或者高优先级的线程得到执行机会，这也和sleep()方法不同。</p>
-<h2 id="join-方法"><a href="#join-方法" class="headerlink" title="join()方法"></a>join()方法</h2><p>Thread的join()的含义是等待该线程终止，即将挂起调用线程的执行，直到被调用的对象完成它的执行。比如存在两个线程t1和t2，下述代码表示先启动t1，直到t1的任务结束，才轮到t2启动。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t1.start();</span><br><span class="line">t1.join(); </span><br><span class="line">t2.start();</span><br></pre></td></tr></table></figure>
-
-<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>线程A和线程B相互等待对方持有的锁导致程序无限死循环下去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public class DeadLock &#123;</span><br><span class="line">    public static String obj1 &#x3D; &quot;obj1&quot;;</span><br><span class="line">    public static String obj2 &#x3D; &quot;obj2&quot;;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Thread a &#x3D; new Thread(new Lock1());</span><br><span class="line">        Thread b &#x3D; new Thread(new Lock2());</span><br><span class="line">        a.start();</span><br><span class="line">        b.start();</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">class Lock1 implements Runnable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(&quot;Lock1 running&quot;);</span><br><span class="line">            while(true)&#123;</span><br><span class="line">                synchronized(DeadLock.obj1)&#123;</span><br><span class="line">                    System.out.println(&quot;Lock1 lock obj1&quot;);</span><br><span class="line">                    Thread.sleep(3000);&#x2F;&#x2F;获取obj1后先等一会儿，让Lock2有足够的时间锁住obj2</span><br><span class="line">                    synchronized(DeadLock.obj2)&#123;</span><br><span class="line">                        System.out.println(&quot;Lock1 lock obj2&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Lock2 implements Runnable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            System.out.println(&quot;Lock2 running&quot;);</span><br><span class="line">            while(true)&#123;</span><br><span class="line">                synchronized(DeadLock.obj2)&#123;</span><br><span class="line">                    System.out.println(&quot;Lock2 lock obj2&quot;);</span><br><span class="line">                    Thread.sleep(3000);</span><br><span class="line">                    synchronized(DeadLock.obj1)&#123;</span><br><span class="line">                        System.out.println(&quot;Lock2 lock obj1&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h2><ul>
-<li>打破互斥条件<ul>
-<li>即允许进程同时访问某些资源。但是，有的资源是不允许被同时访问的，像打印机等等，这是由资源本身的属性所决定的。所以，这种办法并无实用价值</li>
-</ul>
-</li>
-<li>打破不可抢占条件<ul>
-<li>即允许进程强行从占有者那里夺取某些资源。就是说，当一个进程已占有了某些资源，它又申请新的资源，但不能立即被满足时，它必须释放所占有的全部资源，以后再重新申请。它所释放的资源可以分配给其它进程。这就相当于该进程占有的资源被隐蔽地强占了。这种预防死锁的方法实现起来困难，会降低系统性能</li>
-</ul>
-</li>
-<li>打破占有且申请条件<ul>
-<li>可以实行资源预先分配策略。即进程在运行前一次性地向系统申请它所需要的全部资源。如果某个进程所需的全部资源得不到满足，则不分配任何资源，此进程暂不运行。只有当系统能够满足当前进程的全部资源需求时，才一次性地将所申请的资源全部分配给该进程。由于运行的进程已占有了它所需的全部资源，所以不会发生占有资源又申请资源的现象，因此不会发生死锁。但是，这种策略也有如下缺点：<ul>
-<li>在许多情况下，一个进程在执行之前不可能知道它所需要的全部资源。这是由于进程在执行时是动态的，不可预测的；</li>
-<li>资源利用率低。无论所分资源何时用到，一个进程只有在占有所需的全部资源后才能执行。即使有些资源最后才被该进程用到一次，但该进程在生存期间却一直占有它们，造成长期占着不用的状况。这显然是一种极大的资源浪费；</li>
-<li>降低了进程的并发性。因为资源有限，又加上存在浪费，能分配到所需全部资源的进程个数就必然少了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>打破循环等待条件<ul>
-<li>实行资源有序分配策略。采用这种策略，即把资源事先分类编号，按号分配，使进程在申请，占用资源时不会形成环路。所有进程对资源的请求必须严格按资源序号递增的顺序提出。进程占用了小号资源，才能申请大号资源，就不会产生环路，从而预防了死锁。这种策略与前面的策略相比，资源的利用率和系统吞吐量都有很大提高，但是也存在以下缺点：<ul>
-<li>限制了进程对资源的请求，同时给系统中所有资源合理编号也是件困难事，并增加了系统开销；</li>
-<li>为了遵循按编号申请的次序，暂不使用的资源也需要提前申请，从而增加了进程对资源的占用时间。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h1><ul>
-<li>ThreadLocal类中维护一个Map，用于存储每一个线程的变量副本，Map中元素的键为线程对象，而值为对应线程的变量副本</li>
-<li>为每个线程维护一个本地变量。用于线程间的数据隔离，它为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">    private static ThreadLocal&lt;String&gt; threadLocal;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        threadLocal &#x3D; new ThreadLocal&lt;String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            protected String initialValue() &#123;</span><br><span class="line">                return &quot;初始化值&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++)&#123;</span><br><span class="line">            new Thread(new MyRunnable(), &quot;线程&quot;+i).start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class MyRunnable implements Runnable &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            String name &#x3D; Thread.currentThread().getName();</span><br><span class="line">            System.out.println(name + &quot;的threadLocal&quot;+ &quot;,设置为&quot; + name);</span><br><span class="line">            threadLocal.set(name);</span><br><span class="line">            try &#123;</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;&#125;</span><br><span class="line">            System.out.println(name + &quot;:&quot; + threadLocal.get());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">线程1的threadLocal,设置为线程1</span><br><span class="line">线程4的threadLocal,设置为线程4</span><br><span class="line">线程3的threadLocal,设置为线程3</span><br><span class="line">线程2的threadLocal,设置为线程2</span><br><span class="line">线程0的threadLocal,设置为线程0</span><br><span class="line">线程6的threadLocal,设置为线程6</span><br><span class="line">线程5的threadLocal,设置为线程5</span><br><span class="line">线程7的threadLocal,设置为线程7</span><br><span class="line">线程8的threadLocal,设置为线程8</span><br><span class="line">线程9的threadLocal,设置为线程9</span><br><span class="line">线程3:线程3</span><br><span class="line">线程4:线程4</span><br><span class="line">线程8:线程8</span><br><span class="line">线程6:线程6</span><br><span class="line">线程2:线程2</span><br><span class="line">线程5:线程5</span><br><span class="line">线程9:线程9</span><br><span class="line">线程1:线程1</span><br><span class="line">线程7:线程7</span><br><span class="line">线程0:线程0</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h1><h2 id="synchronized锁什么"><a href="#synchronized锁什么" class="headerlink" title="synchronized锁什么"></a>synchronized锁什么</h2><ul>
-<li>对于普通同步方法，锁是当前实例对象；</li>
-<li>对于静态同步方法，锁是当前类的Class对象；</li>
-<li>对于同步方法块，锁是括号中配置的对象；</li>
-<li>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。synchronized用的锁是存在Java对象头里的MarkWord，通常是32bit或者64bit，其中最后2bit表示锁标志位</li>
-</ul>
-<h2 id="synchonized-this-和synchonized-object-区别"><a href="#synchonized-this-和synchonized-object-区别" class="headerlink" title="synchonized(this)和synchonized(object)区别"></a>synchonized(this)和synchonized(object)区别</h2><p>其实并没有很大的区别，synchonized(object)本身就包含synchonized(this)这种情况，使用的场景都是对一个代码块进行加锁，效率比直接在方法名上加synchonized高一些（下面分析），唯一的区别就是对象的不同</p>
-<ul>
-<li>当两个并发线程访问同一个对象object中的这个synchronized(this)同步代码块时，一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块</li>
-<li>然而，当一个线程访问object的一个synchronized(this)同步代码块时，另一个线程仍然可以访问该object中的非synchronized(this)同步代码块。</li>
-<li>尤其关键的是，当一个线程访问object的一个synchronized(this)同步代码块时，其他线程对object中所有其它synchronized(this)同步代码块的访问将被阻塞</li>
-<li>当一个线程访问object的一个synchronized(this)同步代码块时，它就获得了这个object的对象锁。结果，其它线程对该object对象所有同步代码部分的访问都被暂时阻塞。</li>
-</ul>
-<h2 id="Synchronize作用于方法和静态方法区别"><a href="#Synchronize作用于方法和静态方法区别" class="headerlink" title="Synchronize作用于方法和静态方法区别"></a>Synchronize作用于方法和静态方法区别</h2><ul>
-<li>在static方法前加synchronized：静态方法属于类方法，它属于这个类，获取到的锁，是属于类的锁。</li>
-<li>在普通方法前加synchronized：非static方法获取到的锁，是属于当前对象的锁。</li>
-<li>类锁和对象锁不同，synchronized修饰不加static的方法，锁是加在单个对象上，不同的对象没有竞争关系；修饰加了static的方法，锁是加载类上，这个类所有的对象竞争一把锁。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">private void test() &#123;</span><br><span class="line">    final TestSynchronized test1 &#x3D; new TestSynchronized();</span><br><span class="line">    final TestSynchronized test2 &#x3D; new TestSynchronized();</span><br><span class="line">    Thread t1 &#x3D; new Thread(new Runnable() &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            test1.method01(&quot;a&quot;);</span><br><span class="line">            &#x2F;&#x2F;test1.method02(&quot;a&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread t2 &#x3D; new Thread(new Runnable() &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            test2.method01(&quot;b&quot;);</span><br><span class="line">            &#x2F;&#x2F;test2.method02(&quot;a&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    t2.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static class TestSynchronized&#123;</span><br><span class="line">    private int num1;</span><br><span class="line">    public synchronized void method01(String arg) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            if(&quot;a&quot;.equals(arg))&#123;</span><br><span class="line">                num1 &#x3D; 100;</span><br><span class="line">                System.out.println(&quot;tag a set number over&quot;);</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                num1 &#x3D; 200;</span><br><span class="line">                System.out.println(&quot;tag b set number over&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;tag &#x3D; &quot;+ arg + &quot;;num &#x3D;&quot;+ num1);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static int  num2;</span><br><span class="line">    public static synchronized void method02(String arg) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            if(&quot;a&quot;.equals(arg))&#123;</span><br><span class="line">                num2 &#x3D; 100;</span><br><span class="line">                System.out.println(&quot;tag a set number over&quot;);</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                num2 &#x3D; 200;</span><br><span class="line">                System.out.println(&quot;tag b set number over&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;tag &#x3D; &quot;+ arg + &quot;;num &#x3D;&quot;+ num2);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;调用method01方法打印日志【普通方法】</span><br><span class="line">tag a set number over</span><br><span class="line">tag b set number over</span><br><span class="line">tag &#x3D; b;num &#x3D;200</span><br><span class="line">tag &#x3D; a;num &#x3D;100</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;调用method02方法打印日志【static静态方法】</span><br><span class="line">tag a set number over</span><br><span class="line">tag &#x3D; a;num &#x3D;100</span><br><span class="line">tag b set number over</span><br><span class="line">tag &#x3D; b;num &#x3D;200</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><ul>
-<li>轻量级锁。synchronized是阻塞式同步，在线程竞争激烈的情况下会升级为重量级锁。而volatile就可以说是java虚拟机提供的最轻量级的同步机制。</li>
-<li>被volatile修饰的变量能够保证每个线程能够获取该变量的最新值，从而避免出现数据脏读的现象。<h2 id="线程在工作内存进行操作后何时会写到主内存中"><a href="#线程在工作内存进行操作后何时会写到主内存中" class="headerlink" title="线程在工作内存进行操作后何时会写到主内存中"></a>线程在工作内存进行操作后何时会写到主内存中</h2></li>
-<li>Java内存模型告诉我们，各个线程会将共享变量从主内存中拷贝到工作内存，然后执行引擎会基于工作内存中的数据进行操作处理。</li>
-<li>这个时机对普通变量是没有规定的，而针对volatile修饰的变量给java虚拟机特殊的约定，线程对volatile变量的修改会立刻被其他线程所感知，即不会出现数据脏读的现象，从而保证数据的“可见性”。 </li>
-</ul>
-<h2 id="volatile的happens-before关系"><a href="#volatile的happens-before关系" class="headerlink" title="volatile的happens-before关系"></a>volatile的happens-before关系</h2><p>volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读</p>
-<h2 id="一个int变量，用volatile修饰，多线程去操作-，线程安全吗"><a href="#一个int变量，用volatile修饰，多线程去操作-，线程安全吗" class="headerlink" title="一个int变量，用volatile修饰，多线程去操作++，线程安全吗"></a>一个int变量，用volatile修饰，多线程去操作++，线程安全吗</h2><ul>
-<li>不安全,volatile只能保证可见性，并不能保证原子性.</li>
-<li>i++实际上会被分成多步完成：<ol>
-<li>获取i的值；</li>
-<li>执行i+1；</li>
-<li>将结果赋值给i</li>
-</ol>
-</li>
-<li>volatile只能保证这3步不被重排序</li>
-</ul>
-<h1 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h1><p>CAS即compare and swap的缩写，中文翻译成比较并交换。CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。自旋就是不断尝试CAS操作直到成功为止。</p>
-<h2 id="CAS实现原子操作会出现什么问题"><a href="#CAS实现原子操作会出现什么问题" class="headerlink" title="CAS实现原子操作会出现什么问题"></a>CAS实现原子操作会出现什么问题</h2><ul>
-<li>ABA问题。因为CAS需要在操作之的时候，检查值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成B，有变成A，那么使用CAS进行检查时会发现它的值没有发生变化，但实际上发生了变化。ABA问题可以通过添加版本号来解决。Java 1.5开始，JDK的Atomic包里提供了一个类AtomicStampedReference来解决ABA问题。</li>
-<li>循环时间长开销大。pause指令优化。</li>
-<li>只能保证一个共享变量的原子操作。可以合并成一个对象进行CAS操作</li>
-</ul>
-<h1 id="多线程同步"><a href="#多线程同步" class="headerlink" title="多线程同步"></a>多线程同步</h1><p>假如有n个网络线程，需要当n个网络线程完成之后，再去做数据处理，你会怎么解决？</p>
-<ul>
-<li>这种情况可以可以使用thread.join()；join方法会阻塞直到thread线程终止才返回。更复杂一点的情况也可以使用CountDownLatch，CountDownLatch的构造接收一个int参数作为计数器，每次调用countDown方法计数器减一。做数据处理的线程调用await方法阻塞直到计数器为0时。</li>
-</ul>
-<h1 id="Runnable接口和Callable接口"><a href="#Runnable接口和Callable接口" class="headerlink" title="Runnable接口和Callable接口"></a>Runnable接口和Callable接口</h1><p>Runnable接口中的run()方法的返回值是void，它做的事情只是纯粹地去执行run()方法中的代码而已；Callable接口中的call()方法是有返回值的，是一个泛型，和Future、FutureTask配合可以用来获取异步执行的结果</p>
-<h1 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h1><ul>
-<li>乐观锁：就像它的名字一样，对于并发间操作产生的线程安全问题持乐观状态，乐观锁认为竞争不总是会发生，因此它不需要持有锁，将比较-替换这两个动作作为一个原子操作尝试去修改内存中的变量，如果失败则表示发生冲突，那么就应该有相应的重试逻辑</li>
-<li>悲观锁：还是像它的名字一样，对于并发间操作产生的线程安全问题持悲观状态，悲观锁认为竞争总是会发生，因此每次对某资源进行操作时，都会持有一个独占的锁，就像synchronized，直接上了锁就操作资源。</li>
-</ul>
-<h1 id="在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？"><a href="#在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？" class="headerlink" title="在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？"></a>在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？</h1><ul>
-<li>原子性（Atomicity）：一个操作要么都执行要么都不执行。<ul>
-<li>可直接保证的原子性变量操作有：read、load、assign、use、store和write，因此可认为基本数据类型的访问读写是具备原子性的</li>
-<li>若需要保证更大范围的原子性，可通过更高层次的字节码指令monitorenter和monitorexit来隐式地使用lock和unlock这两个操作，反映到Java代码中就是同步代码块synchronized关键字</li>
-</ul>
-</li>
-<li>可见性（Visibility）：当一个线程修改了共享变量的值，其他线程能够立即得知这个修改。<ul>
-<li>通过在变量修改后将新值同步回主内存，在变量读取前从主内存刷新变量值这种依赖主内存作为传递媒介的方式来实现。</li>
-<li>提供三个关键字保证可见性：volatile能保证新值能立即同步到主内存，且每次使用前立即从主内存刷新；synchronized对一个变量执行unlock操作之前可以先把此变量同步回主内存中；被final修饰的字段在构造器中一旦初始化完成且构造器没有把this的引用传递出去，就可以在其他线程中就能看见final字段的值。</li>
-</ul>
-</li>
-<li>有序性（Ordering）：程序代码按照指令顺序执行。<ul>
-<li>如果在本线程内观察，所有的操作都是有序的，指“线程内表现为串行的语义”；如果在一个线程中观察另一个线程，所有的操作都是无序的，指“指令重排序”现象和“工作内存与主内存同步延迟”现象。</li>
-<li>提供两个关键字保证有序性：volatile 本身就包含了禁止指令重排序的语义；synchronized保证一个变量在同一个时刻只允许一条线程对其进行lock操作，使得持有同一个锁的两个同步块只能串行地进入。</li>
-</ul>
-</li>
-</ul>
-
+          <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79138125">https://zhuanlan.zhihu.com/p/79138125</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/28/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
