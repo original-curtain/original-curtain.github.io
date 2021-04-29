@@ -682,10 +682,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-24 16:17:59 / Modified: 17:21:24" itemprop="dateCreated datePublished" datetime="2021-04-24T16:17:59+08:00">2021-04-24</time>
+              <time title="Created: 2021-04-24 16:17:59" itemprop="dateCreated datePublished" datetime="2021-04-24T16:17:59+08:00">2021-04-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-29 09:33:10" itemprop="dateModified" datetime="2021-04-29T09:33:10+08:00">2021-04-29</time>
+              </span>
 
           
 
@@ -698,7 +704,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>GlideV4的源码分析，其添加依赖导入位为：</p>
+          <p>重置<br>GlideV4的源码分析，其添加依赖导入位为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#39;com.github.bumptech.glide:glide:4.9.0&#39;</span><br></pre></td></tr></table></figure>
 <p>简单使用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里便是与 Glide 3+ 的不同</span><br><span class="line">RequestOptions options &#x3D; new RequestOptions()</span><br><span class="line">        .placeholder(R.drawable.loading);</span><br><span class="line">&#x2F;&#x2F; 它需要一个</span><br><span class="line">Glide.with(this)</span><br><span class="line">     .load(url)</span><br><span class="line">     .apply(options)</span><br><span class="line">     .into(imageView);</span><br></pre></td></tr></table></figure>
