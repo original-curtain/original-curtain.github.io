@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="待写">
+  <meta name="description" content="创建线程主要有四种方式：  继承Thread 实现Runable接口 实现Callable接口，并结合Future实现 通过线程池">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit">
-<meta property="og:url" content="http://example.com/2021/04/29/Retrofit/index.html">
+<meta property="og:title" content="线程的创建方式">
+<meta property="og:url" content="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="待写">
+<meta property="og:description" content="创建线程主要有四种方式：  继承Thread 实现Runable接口 实现Callable接口，并结合Future实现 通过线程池">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-29T01:35:17.000Z">
-<meta property="article:modified_time" content="2021-04-29T01:37:59.571Z">
+<meta property="article:published_time" content="2021-05-13T06:40:38.000Z">
+<meta property="article:modified_time" content="2021-05-13T06:48:24.667Z">
 <meta property="article:author" content="DanielYiny">
-<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Java,线程">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/04/29/Retrofit/">
+<link rel="canonical" href="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Retrofit | Hexo</title>
+  <title>线程的创建方式 | Hexo</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/29/Retrofit/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Retrofit
+          线程的创建方式
         </h1>
 
         <div class="post-meta">
@@ -185,7 +185,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-29 09:35:17 / 修改时间：09:37:59" itemprop="dateCreated datePublished" datetime="2021-04-29T09:35:17+08:00">2021-04-29</time>
+              <time title="创建时间：2021-05-13 14:40:38 / 修改时间：14:48:24" itemprop="dateCreated datePublished" datetime="2021-05-13T14:40:38+08:00">2021-05-13</time>
             </span>
 
           
@@ -199,11 +199,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>待写</p>
-<span id="more"></span>
-<h1 id="retrofit接口为什么可以调用方法"><a href="#retrofit接口为什么可以调用方法" class="headerlink" title="retrofit接口为什么可以调用方法"></a>retrofit接口为什么可以调用方法</h1><p>一个接口被动态代理，只要调用代理类的任何的方法，都可以获得该方法的参数以及方法注解，然后既可以做任何事情了（要的就是接口中的方法的参数以及方法注解）</p>
-<h1 id="retrofit-https实现"><a href="#retrofit-https实现" class="headerlink" title="retrofit https实现"></a>retrofit https实现</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20521573/article/details/79233793">https://blog.csdn.net/qq_20521573/article/details/79233793</a></p>
+        <p>创建线程主要有四种方式：</p>
+<ol>
+<li>继承Thread</li>
+<li>实现Runable接口</li>
+<li>实现Callable接口，并结合Future实现</li>
+<li>通过线程池<span id="more"></span></li>
+</ol>
+<h1 id="继承Thread"><a href="#继承Thread" class="headerlink" title="继承Thread"></a>继承Thread</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread t1 &#x3D; new Thread()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;第1种方式:new Thread 1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">t1.start();</span><br></pre></td></tr></table></figure>
 
+<h1 id="实现Runable接口"><a href="#实现Runable接口" class="headerlink" title="实现Runable接口"></a>实现Runable接口</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Thread t2 &#x3D; new Thread(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;第2种方式:new Thread 2&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">t2.start();</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现Callable接口，并结合Future实现"><a href="#实现Callable接口，并结合Future实现" class="headerlink" title="实现Callable接口，并结合Future实现"></a>实现Callable接口，并结合Future实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">FutureTask&lt;String&gt; ft &#x3D; new FutureTask&lt;&gt;(new Callable&lt;String&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String call() throws Exception &#123;</span><br><span class="line">        String result &#x3D; &quot;第3种方式:new Thread 3&quot;;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Thread t3 &#x3D; new Thread(ft);</span><br><span class="line">t3.start();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 线程执行完，才会执行get()，所以FutureTask也可以用于闭锁</span><br><span class="line">String result &#x3D; ft.get();</span><br><span class="line">System.out.println(result);</span><br></pre></td></tr></table></figure>
+
+<h1 id="通过线程池"><a href="#通过线程池" class="headerlink" title="通过线程池"></a>通过线程池</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService pool &#x3D; Executors.newFixedThreadPool(5);</span><br><span class="line"></span><br><span class="line">Future&lt;String&gt; future &#x3D; pool.submit(new Callable&lt;String&gt;()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String call() throws Exception &#123;</span><br><span class="line">        String result &#x3D; &quot;第4种方式:new Thread 4&quot;;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">pool.shutdown();</span><br><span class="line">System.out.println(future.get());</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -212,7 +221,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Java-%E7%BA%BF%E7%A8%8B/" rel="tag"># Java,线程</a>
           </div>
 
         
@@ -221,13 +230,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/29/RecyclerView/" rel="prev" title="RecyclerView">
-      <i class="fa fa-chevron-left"></i> RecyclerView
+    <a href="/2021/05/13/Android%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="prev" title="Android性能优化">
+      <i class="fa fa-chevron-left"></i> Android性能优化
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/29/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6Glide/" rel="next" title="第三方开源框架Glide">
-      第三方开源框架Glide <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -286,7 +292,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#retrofit%E6%8E%A5%E5%8F%A3%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E8%B0%83%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">retrofit接口为什么可以调用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#retrofit-https%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">retrofit https实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BFThread"><span class="nav-number">1.</span> <span class="nav-text">继承Thread</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Runable%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">实现Runable接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Callable%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%B9%B6%E7%BB%93%E5%90%88Future%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">实现Callable接口，并结合Future实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">4.</span> <span class="nav-text">通过线程池</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
