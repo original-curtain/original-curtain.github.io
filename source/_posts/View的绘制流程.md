@@ -47,3 +47,7 @@ requestLayout()也可以达到重绘view的目的，但是与前两者不同，�
 - 绘制自己的孩子通过dispatchDraw（canvas）实现
 
 draw过程会调用onDraw(Canvas canvas)方法，然后就是dispatchDraw(Canvas canvas)方法, dispatchDraw()主要是分发给子组件进行绘制，我们通常定制组件的时候重写的是onDraw()方法。值得注意的是ViewGroup容器组件的绘制，当它没有背景时直接调用的是dispatchDraw()方法, 而绕过了draw()方法，当它有背景的时候就调用draw()方法，而draw()方法里包含了dispatchDraw()方法的调用。因此要在ViewGroup上绘制东西的时候往往重写的是dispatchDraw()方法而不是onDraw()方法，或者自定制一个Drawable，重写它的draw(Canvas c)和 getIntrinsicWidth()方法，然后设为背景。
+
+# 动画在view改变时会调用view的哪个阶段
+- 补间动画调用ondraw(),在startAnimation()里面调用了invalidate();
+- 属性动画不会调用

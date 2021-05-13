@@ -1,8 +1,11 @@
 ---
-title: Glide
-date: 2021-04-24 16:17:59
+title: 第三方开源框架Glide
+date: 2021-04-29 09:43:17
 tags: Android
 ---
+glide最大的优势就是对bitmap的管理是跟随生命周期去发生改变的
+<https://cloud.tencent.com/developer/article/1621891>
+
 GlideV4的源码分析，其添加依赖导入位为：
 ```
 implementation 'com.github.bumptech.glide:glide:4.9.0'

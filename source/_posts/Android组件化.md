@@ -12,3 +12,6 @@ jni实现
 
 retrofit https实现
 <https://blog.csdn.net/qq_20521573/article/details/79233793>
+retrofit接口为什么可以调用方法
+<https://www.jianshu.com/p/574930b0e9ac>
+<https://zhuanlan.zhihu.com/p/35121326>

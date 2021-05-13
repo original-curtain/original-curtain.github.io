@@ -1,9 +1,11 @@
 ---
 title: Java多线程
 date: 2021-04-28 20:05:27
-tags: Java
+tags: [Java,线程]
 ---
 # 线程池
+<https://zhuanlan.zhihu.com/p/79138125>
+<!--more-->
 
 # 线程方法
 ## 线程中start和run方法
@@ -166,6 +168,9 @@ public class Test {
 - 对于静态同步方法，锁是当前类的Class对象；
 - 对于同步方法块，锁是括号中配置的对象；
 - 当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。synchronized用的锁是存在Java对象头里的MarkWord，通常是32bit或者64bit，其中最后2bit表示锁标志位
+
+## synchronized(this/.class/Object),synchronize方法区别
+<https://www.jianshu.com/p/4c1ed2048985>
 
 ## synchonized(this)和synchonized(object)区别
 其实并没有很大的区别，synchonized(object)本身就包含synchonized(this)这种情况，使用的场景都是对一个代码块进行加锁，效率比直接在方法名上加synchonized高一些（下面分析），唯一的区别就是对象的不同

@@ -347,3 +347,7 @@ st->op1->op2->cond
 cond(yes)->op3->op4->e
 cond(no)->op5->op6->op7->op8->e
 ```
+
+# 问题
+## 两view堆叠时，如何让下层view响应点击
+上层view不setOnClickListner()等
