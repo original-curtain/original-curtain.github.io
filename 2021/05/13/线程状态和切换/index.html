@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="待写">
+  <meta name="description" content="线程有6种状态：  初始(NEW)：新创建了一个线程对象，但还没有调用start()方法 运行(RUNABLE)：Java线程中将就绪（ready）和运行中（running）两种状态笼统的称为“运行”。 就绪：线程对象创建后，其他线程(比如main线程）调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权，此时处于就绪状态 运行中：就绪状态的线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RecyclerView">
-<meta property="og:url" content="http://example.com/2021/04/29/RecyclerView/index.html">
+<meta property="og:title" content="线程状态和切换">
+<meta property="og:url" content="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%92%8C%E5%88%87%E6%8D%A2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="待写">
+<meta property="og:description" content="线程有6种状态：  初始(NEW)：新创建了一个线程对象，但还没有调用start()方法 运行(RUNABLE)：Java线程中将就绪（ready）和运行中（running）两种状态笼统的称为“运行”。 就绪：线程对象创建后，其他线程(比如main线程）调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权，此时处于就绪状态 运行中：就绪状态的线程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-29T01:23:54.000Z">
-<meta property="article:modified_time" content="2021-05-07T04:15:53.846Z">
+<meta property="article:published_time" content="2021-05-13T06:50:42.000Z">
+<meta property="article:modified_time" content="2021-05-13T07:15:40.298Z">
 <meta property="article:author" content="DanielYiny">
-<meta property="article:tag" content="Android">
+<meta property="article:tag" content="Java,线程">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/04/29/RecyclerView/">
+<link rel="canonical" href="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%92%8C%E5%88%87%E6%8D%A2/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>RecyclerView | Hexo</title>
+  <title>线程状态和切换 | Hexo</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/29/RecyclerView/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%92%8C%E5%88%87%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          RecyclerView
+          线程状态和切换
         </h1>
 
         <div class="post-meta">
@@ -183,16 +183,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-04-29 09:23:54" itemprop="dateCreated datePublished" datetime="2021-04-29T09:23:54+08:00">2021-04-29</time>
+              <time title="创建时间：2021-05-13 14:50:42 / 修改时间：15:15:40" itemprop="dateCreated datePublished" datetime="2021-05-13T14:50:42+08:00">2021-05-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-07 12:15:53" itemprop="dateModified" datetime="2021-05-07T12:15:53+08:00">2021-05-07</time>
-              </span>
 
           
 
@@ -205,26 +199,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>待写</p>
-<span id="more"></span>
-<h1 id="缓存机制（四层）"><a href="#缓存机制（四层）" class="headerlink" title="缓存机制（四层）"></a>缓存机制（四层）</h1><ul>
-<li>Scrap：屏幕内缓存数据，数据可直接复用</li>
-<li>Cache：刚刚移出屏幕的缓存数据，默认大小2个，数据可直接复用</li>
-<li>ViewCacheExtension：留给开发者自定义的缓存，慎用</li>
-<li>RecycledViewPool：当Cache缓存满了以后会根据FIFO（先进先出）的规则把Cache先缓存进去的ViewHolder移出并缓存到RecycledViewPool中，RecycledViewPool默认的缓存数量是5个。数据会被重置</li>
+        <p>线程有6种状态：</p>
+<ol>
+<li>初始(NEW)：新创建了一个线程对象，但还没有调用start()方法</li>
+<li>运行(RUNABLE)：Java线程中将就绪（ready）和运行中（running）两种状态笼统的称为“运行”。<ul>
+<li>就绪：线程对象创建后，其他线程(比如main线程）调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权，此时处于就绪状态</li>
+<li>运行中：就绪状态的线程在获得CPU时间片后变为运行中状态</li>
 </ul>
-<h2 id="rcyclerView滑动时，view进来和出去时的流程"><a href="#rcyclerView滑动时，view进来和出去时的流程" class="headerlink" title="rcyclerView滑动时，view进来和出去时的流程"></a>rcyclerView滑动时，view进来和出去时的流程</h2><ul>
-<li>假设页面可以容纳7条数据，7条数据会依次调用onCreateViewHolder和onBindViewHolder</li>
-<li>往下滑一条（position=7），那么会把position=0的数据放到mCacheViews中。此时mCacheViews缓存区数量为1，mRecyclerPool数量为0。然后新出现的position=7的数据通过postion在mCacheViews中找不到对应的ViewHolder，通过itemtype也在mRecyclerPool中找不到对应的数据，所以会调用onCreateViewHolder和onBindViewHolder方法</li>
-<li>再往下滑一条数据（position=8），如上</li>
-<li>再往下滑一条数据（position=9），position=2的数据会放到mCacheViews中，但是由于mCacheViews缓存区默认容量为2，所以position=0的数据会被清空数据然后放到mRecyclerPool缓存池中。而新出现的position=9数据由于在mRecyclerPool中还是找不到相应type的ViewHolder，所以还是会走onCreateViewHolder和onBindViewHolder方法。所以此时mCacheViews缓存区数量为2，mRecyclerPool数量为1</li>
-<li>再往下滑一条数据（position=10），这时候由于可以在mRecyclerPool中找到相同viewtype的ViewHolder了。所以就直接复用了，并调用onBindViewHolder方法绑定数据</li>
-</ul>
-<h1 id="滑动冲突解决"><a href="#滑动冲突解决" class="headerlink" title="滑动冲突解决"></a>滑动冲突解决</h1><ul>
-<li>自定义父recyclerView并重写onInterceptTouchEvent()方法，不进行拦截</li>
-<li>子布局重写dispatchTouchEvent()方法，通知通知父层ViewGroup不要拦截点击事件，通过requestDisallowInterceptTouchEvent方法</li>
-<li>通过事件分发规则我们知道，OnTouchListener优先级很高，可以通过这个来告诉父布局，不要拦截我的事件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">holder.recyclerView.setOnTouchListener &#123; v, event -&gt;</span><br><span class="line">         when(event.action)&#123;</span><br><span class="line">             &#x2F;&#x2F;当用户按下的时候，我们告诉父组件，不要拦截我的事件（这个时候子组件是可以正常响应事件的），拿起之后就会告诉父组件可以阻止。</span><br><span class="line">             MotionEvent.ACTION_DOWN,MotionEvent.ACTION_MOVE -&gt; v.parent.requestDisallowInterceptTouchEvent(true)</span><br><span class="line">             MotionEvent.ACTION_UP -&gt; v.parent.requestDisallowInterceptTouchEvent(false)</span><br><span class="line">         &#125;</span><br><span class="line">         false&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+</li>
+<li>阻塞(BLOCKED)：表示线程阻塞于锁</li>
+<li>等待(WAITING)：进入该状态的线程需要等待其他线程做出一些特定动作（通知或中断）,否则无限期等待</li>
+<li>超时等待(TIMED_WAITING)：该状态不同于WAITING，它可以在指定的时间后自行返回</li>
+<li>终止(TERMINATED)：表示该线程已经执行完毕<span id="more"></span></li>
+</ol>
+<p>图见<a target="_blank" rel="noopener" href="https://blog.csdn.net/pange1991/article/details/53860651">https://blog.csdn.net/pange1991/article/details/53860651</a></p>
+<h1 id="Thread-sleep-long-millis"><a href="#Thread-sleep-long-millis" class="headerlink" title="Thread.sleep(long millis)"></a>Thread.sleep(long millis)</h1><p>一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。</p>
+<h2 id="Thread-sleep-0-的作用"><a href="#Thread-sleep-0-的作用" class="headerlink" title="Thread.sleep(0)的作用"></a>Thread.sleep(0)的作用</h2><p>由于Java采用抢占式的线程调度算法，因此可能会出现某条线程常常获取到CPU控制权的情况，为了让某些优先级比较低的线程也能获取到CPU控制权，可以使用Thread.sleep(0)手动触发一次操作系统分配时间片的操作，这也是平衡CPU控制权的一种操作。</p>
+<h1 id="Thread-yield"><a href="#Thread-yield" class="headerlink" title="Thread.yield()"></a>Thread.yield()</h1><p>一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁资源，由运行状态变为就绪状态，让OS再次选择线程。作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证yield()达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。Thread.yield()不会导致阻塞。该方法与sleep()类似，只是不能由用户指定暂停多长时间。</p>
+<h1 id="thread-join-thread-join-long-millis"><a href="#thread-join-thread-join-long-millis" class="headerlink" title="thread.join()/thread.join(long millis)"></a>thread.join()/thread.join(long millis)</h1><p>当前线程里调用其它线程t的join方法，当前线程进入WAITING/TIMED_WAITING状态，当前线程不会释放已经持有的对象锁。线程t执行完毕或者millis时间到，当前线程一般情况下进入RUNNABLE状态，也有可能进入BLOCKED状态（因为join是基于wait实现的）。</p>
+<h1 id="obj-wait"><a href="#obj-wait" class="headerlink" title="obj.wait()"></a>obj.wait()</h1><p>当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒</p>
+<h1 id="obj-notify"><a href="#obj-notify" class="headerlink" title="obj.notify()"></a>obj.notify()</h1><p>唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程</p>
+<blockquote>
+<p>与wait()搭配使用</p>
+</blockquote>
+<h1 id="LockSupport-park-LockSupport-parkNanos-long-nanos-LockSupport-parkUntil-long-deadlines"><a href="#LockSupport-park-LockSupport-parkNanos-long-nanos-LockSupport-parkUntil-long-deadlines" class="headerlink" title="LockSupport.park()/LockSupport.parkNanos(long nanos),LockSupport.parkUntil(long deadlines)"></a>LockSupport.park()/LockSupport.parkNanos(long nanos),LockSupport.parkUntil(long deadlines)</h1><p>当前线程进入WAITING/TIMED_WAITING状态。</p>
+<blockquote>
+<p>对比wait方法,不需要获得锁就可以让线程进入WAITING/TIMED_WAITING状态，需要通过LockSupport.unpark(Thread thread)唤醒。</p>
+</blockquote>
 
     </div>
 
@@ -234,7 +235,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"># Android</a>
+              <a href="/tags/Java-%E7%BA%BF%E7%A8%8B/" rel="tag"># Java,线程</a>
           </div>
 
         
@@ -243,13 +244,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/04/29/Android%E5%9F%BA%E7%A1%80/" rel="prev" title="Android基础">
-      <i class="fa fa-chevron-left"></i> Android基础
+    <a href="/2021/05/13/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/" rel="prev" title="线程的创建方式">
+      <i class="fa fa-chevron-left"></i> 线程的创建方式
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/04/29/Retrofit/" rel="next" title="Retrofit">
-      Retrofit <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -308,7 +306,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%EF%BC%88%E5%9B%9B%E5%B1%82%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">缓存机制（四层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rcyclerView%E6%BB%91%E5%8A%A8%E6%97%B6%EF%BC%8Cview%E8%BF%9B%E6%9D%A5%E5%92%8C%E5%87%BA%E5%8E%BB%E6%97%B6%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">rcyclerView滑动时，view进来和出去时的流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E5%86%B2%E7%AA%81%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">滑动冲突解决</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Thread-sleep-long-millis"><span class="nav-number">1.</span> <span class="nav-text">Thread.sleep(long millis)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-sleep-0-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">Thread.sleep(0)的作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Thread-yield"><span class="nav-number">2.</span> <span class="nav-text">Thread.yield()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#thread-join-thread-join-long-millis"><span class="nav-number">3.</span> <span class="nav-text">thread.join()&#x2F;thread.join(long millis)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#obj-wait"><span class="nav-number">4.</span> <span class="nav-text">obj.wait()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#obj-notify"><span class="nav-number">5.</span> <span class="nav-text">obj.notify()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LockSupport-park-LockSupport-parkNanos-long-nanos-LockSupport-parkUntil-long-deadlines"><span class="nav-number">6.</span> <span class="nav-text">LockSupport.park()&#x2F;LockSupport.parkNanos(long nanos),LockSupport.parkUntil(long deadlines)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
